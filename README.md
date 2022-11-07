@@ -73,7 +73,7 @@ Lire la documentation technique disponible dans le dossier "documentation"
 Barrere Julien, Autret Guilhem, Quemmerais-Amice Frédéric, 2022. Guide d'utilisation des outils d'analyses de données du projet Carpediem: cartographie du risque d'effets cumulés sur les habitats benthiques. Version 7.1 publique, octobre 2022, 149 pages.
 
 
-Déroulement général de l'analyse du script 1 "" (voir le guide d'utilisation :                                             
+Déroulement général de l'analyse du script 1 "analyse_etape1_refc_publication_v1.R" (voir le guide d'utilisation :
 Les paramétrages de l'analyse sont renseignés dans un fichier Excel contenu dans le dossier "PARAM" du dossier "CODES_CARPEDIEM". Dans le code, seuls les paramètres "fileparam" et "userdir" correspondant respectivement au nom du fichier .xlsx de paramétrage et au chemin d'accès du dossier "CODES_CARPEDIEM" sont a renseigner aux lignes x et y.
 Lecture et import des tables de données sources contenues dans une base de données PostgreSQL (locale et/ou distante).
 Export des résultats dans la base de données, dans de nouvelles tables, dans un schéma à spécifier.
@@ -94,16 +94,12 @@ ETAPE 12 - CALCUL D'UN INDICE DE CONFIANCE POUR LES RELATIONS THEORIQUES
 
 
 
+Déroulement général de l'analyse du script 1 "analyse_etape2_monte_carlo_publication.R" (voir le guide d'utilisation :
 
 
 
 
-Etape 2 :
-
-
-
-
-Etape 3 : 
+Déroulement général de l'analyse du script 1 "analyse_etape3_graphiques_publication.r" (voir le guide d'utilisation :
 
 
 ## Méthodologie
