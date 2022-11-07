@@ -54,19 +54,61 @@ Every project is different, so consider which of these sections apply to yours. 
 Choose a self-explaining name for your project.
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018)
+Date            : 2022/10/06
+Version code    : 1.0
+Version R       : R-3.5.1
+Auteurs         : Alice Vanhoutte-Brunier, Julien Barrere
+Contributeurs   : Frederic Quemmerais-Amice, Guilhem Autret
+Contact         : frederic.quemmerais-amice@ofb.gouv.fr
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Office Français de la Biodiversité (https://www.ofb.gouv.fr/)
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+
+
+## Installation et utilisation
+Lire la documentation technique disponible dans le dossier "documentation"
+Barrere Julien, Autret Guilhem, Quemmerais-Amice Frédéric, 2022. Guide d'utilisation des outils d'analyses de données du projet Carpediem: cartographie du risque d'effets cumulés sur les habitats benthiques. Version 7.1 publique, octobre 2022, 149 pages.
+
+
+Déroulement général de l'analyse du script 1 "" (voir le guide d'utilisation :                                             
+Les paramétrages de l'analyse sont renseignés dans un fichier Excel contenu dans le dossier "PARAM" du dossier "CODES_CARPEDIEM". Dans le code, seuls les paramètres "fileparam" et "userdir" correspondant respectivement au nom du fichier .xlsx de paramétrage et au chemin d'accès du dossier "CODES_CARPEDIEM" sont a renseigner aux lignes x et y.
+Lecture et import des tables de données sources contenues dans une base de données PostgreSQL (locale et/ou distante).
+Export des résultats dans la base de données, dans de nouvelles tables, dans un schéma à spécifier.
+
+Les différentes étapes du script sont :
+ETAPE 01 - LECTURE DE FONCTIONS DECRITES DANS DU CODE SOURCE
+ETAPE 02 - LECTURE DES PARAMETRES DU FICHIER EXCEL ET ECRITURE DANS LA LISTE config
+ETAPE 03 - IMPORT DES TABLES DE LA BASE DE DONNEES
+ETAPE 04 - GESTION DES INDICES ET DIMENSIONS, stockage dans des listes     
+ETAPE 05 - DONNEES HABITATS ET SENSIBILITE   
+ETAPE 06 - CARTOGRAPHIE DES ACTIVITES
+ETAPE 07 - CARTOGRAPHIE DES PRESSIONS
+ETAPE 08 - CARTOGRAPHIE DU RISQUE D'EXPOSITION PRESSION / MULTI-PRESSIONS
+ETAPE 09 - CALCUL DU RISQUE D'EFFETS // RISQUE D'EFFETS CONCONMITANTS
+ETAPE 10 - REALISATION ET SAUVEGARDE DE GRAPHIQUES REPRESENTATIFS DES RESULTATS
+ETAPE 11 - EXPORT DES RESULTATS SOUS FORME DE TABLES DANS LA BASE DE DONNEES
+ETAPE 12 - CALCUL D'UN INDICE DE CONFIANCE POUR LES RELATIONS THEORIQUES
+
+
+
+
+
+
+
+Etape 2 :
+
+
+
+
+Etape 3 : 
+
+
+## Méthodologie
+La méthode d'analyse et un premier exemple d'utilisation est publié dans l'article suivant :
+Quemmerais-Amice Frédéric, Barrere Julien, La Rivière Marie, Contin Gabriel, Bailly Denis, 2020. A Methodology and Tool for Mapping the Risk of Cumulative Effects on Benthic Habitats. Frontiers in Marine Science. 7:569205. https://doi.org/10.3389/fmars.2020.569205
 
 ## Support
 Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
@@ -84,8 +126,11 @@ You can also document commands to lint the code or run tests. These steps help t
 ## Authors and acknowledgment
 Show your appreciation to those who have contributed to the project.
 
-## License
-For open source projects, say how it is licensed.
+## Licence
+Ce programme est un logiciel libre diffusé sous les termes de la licence publique générale GNU (GNU General Public License, GNU GPL) version 3 ou toute version ultérieure. Vous pouvez consulter le guide rapide de la GNU GPL v3 sur https://www.gnu.org/licenses/quick-guide-gplv3.fr.html. Vous pouvez redistribuer et/ou modifier le contenu de ce programme suivant les termes de la GNU GPL version 3 ou ultérieure telle que publiée par la Free Software Foundation. Consultez la GNU General Public License pour plus de details.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Responsabilité
+Ce programme est diffusé dans l'espoir qu'il sera utile. Les auteurs, les contributeurs et l'OFB n'offrent aucune garantie de fonctionnement et de résultat liée à l'utilisation de ce programme. Ils ne peuvent en cas être tenu responsables des interprétations et des conclusions qui pourraient être faites suite l'utilisation de ce programme.
+
+## Statut du projet
+Aucun nouveau développement n'est prévu prochainement.
