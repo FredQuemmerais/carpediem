@@ -14,11 +14,12 @@ Office Français de la Biodiversité (https://www.ofb.gouv.fr/) <br/>
 
 ## Méthodologie
 La méthode d'analyse est publiée dans l'article : <br/>
-Merci d'utiliser cette référence pour citer ces développements. <br/>
 Quemmerais-Amice Frédéric, Barrere Julien, La Rivière Marie, Contin Gabriel, Bailly Denis, 2020. <br/>
 A Methodology and Tool for Mapping the Risk of Cumulative Effects on Benthic Habitats. <br/>
 Frontiers in Marine Science. 7:569205 <br/>
-**https://doi.org/10.3389/fmars.2020.569205**
+**https://doi.org/10.3389/fmars.2020.569205**  <br/>
+
+Merci d'utiliser cette référence pour citer ces développements. <br/>
 
 
 ## Installation et utilisation
