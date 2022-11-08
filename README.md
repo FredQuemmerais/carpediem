@@ -1,4 +1,4 @@
-# carpediem
+# Carpediem
 
 
 ## Description
@@ -39,18 +39,19 @@ Lecture et import des tables de données sources contenues dans une base de donn
 Export des résultats dans la base de données, dans de nouvelles tables, dans un schéma à spécifier. <br/>
 <br/>
 Les différentes étapes du script sont : <br/>
-ETAPE 01 - LECTURE DE FONCTIONS DECRITES DANS DU CODE SOURCE <br/>
-ETAPE 02 - LECTURE DES PARAMETRES DU FICHIER EXCEL ET ECRITURE DANS LA LISTE config <br/>
-ETAPE 03 - IMPORT DES TABLES DE LA BASE DE DONNEES <br/>
-ETAPE 04 - GESTION DES INDICES ET DIMENSIONS, stockage dans des listes <br/>
-ETAPE 05 - DONNEES HABITATS ET SENSIBILITE <br/>
-ETAPE 06 - CARTOGRAPHIE DES ACTIVITES <br/>
-ETAPE 07 - CARTOGRAPHIE DES PRESSIONS <br/>
-ETAPE 08 - CARTOGRAPHIE DU RISQUE D'EXPOSITION PRESSION / MULTI-PRESSIONS <br/>
-ETAPE 09 - CALCUL DU RISQUE D'EFFETS // RISQUE D'EFFETS CONCONMITANTS <br/>
-ETAPE 10 - REALISATION ET SAUVEGARDE DE GRAPHIQUES REPRESENTATIFS DES RESULTATS <br/>
-ETAPE 11 - EXPORT DES RESULTATS SOUS FORME DE TABLES DANS LA BASE DE DONNEES <br/>
-ETAPE 12 - CALCUL D'UN INDICE DE CONFIANCE POUR LES RELATIONS THEORIQUES <br/>
+
+1. LECTURE DE FONCTIONS DECRITES DANS DU CODE SOURCE <br/>
+2. LECTURE DES PARAMETRES DU FICHIER EXCEL ET ECRITURE DANS LA LISTE config <br/>
+3. IMPORT DES TABLES DE LA BASE DE DONNEES <br/>
+4. GESTION DES INDICES ET DIMENSIONS, stockage dans des listes <br/>
+5. DONNEES HABITATS ET SENSIBILITE <br/>
+6. CARTOGRAPHIE DES ACTIVITES <br/>
+7. CARTOGRAPHIE DES PRESSIONS <br/>
+8. CARTOGRAPHIE DU RISQUE D'EXPOSITION PRESSION / MULTI-PRESSIONS <br/>
+9. CALCUL DU RISQUE D'EFFETS // RISQUE D'EFFETS CONCONMITANTS <br/>
+10. REALISATION ET SAUVEGARDE DE GRAPHIQUES REPRESENTATIFS DES RESULTATS <br/>
+11. EXPORT DES RESULTATS SOUS FORME DE TABLES DANS LA BASE DE DONNEES <br/>
+12. CALCUL D'UN INDICE DE CONFIANCE POUR LES RELATIONS THEORIQUES <br/>
 <br/>
 <br/>
 
@@ -66,9 +67,9 @@ Export des résultats dans la base de données, dans de nouvelles tables, dans u
 <br/>
 
 Les différentes étapes du script sont : <br/>
-ETAPE 1 - IMPORT DES DONNEES ACTIVITES ET HABITATS <br/>
-ETAPE 2 - CODAGE DES FONCTIONS ASSOCIEES AUX FACTEURS <br/>
-ETAPE 3 - REALISATION DES SIMULATIONS <br/>
+1. IMPORT DES DONNEES ACTIVITES ET HABITATS <br/>
+2. CODAGE DES FONCTIONS ASSOCIEES AUX FACTEURS <br/>
+3. REALISATION DES SIMULATIONS <br/>
 <br/>
 <br/>
 
@@ -85,9 +86,9 @@ Export des graphiques au format image dans le dossier "OUTPUTS/graphs". <br/>
 <br/>
 
 Les différentes étapes du script sont : <br/>
-ETAPE 1 - LECTURE DU FICHIER DE PARAMETRAGE ET IMPORT DES DONNEES <br/>
-ETAPE 2 - PRODUCTION D'UNE MATRICE ACTIVITE PRESSION REDUITE AUX ACTIVITES ET PRESSIONS PRISES EN COMPTE DANS L'EVALUATION <br/>
-ETAPE 3 - CREATION DES GRAPHES <br/>
+1. LECTURE DU FICHIER DE PARAMETRAGE ET IMPORT DES DONNEES <br/>
+2. PRODUCTION D'UNE MATRICE ACTIVITE PRESSION REDUITE AUX ACTIVITES ET PRESSIONS PRISES EN COMPTE DANS L'EVALUATION <br/>
+3. CREATION DES GRAPHES <br/>
 
 ## Licence
 Ce programme est un logiciel libre diffusé sous les termes de la licence publique générale GNU (GNU General Public License, GNU GPL) version 3 ou toute version ultérieure. Vous pouvez consulter le guide rapide de la GNU GPL v3 sur https://www.gnu.org/licenses/quick-guide-gplv3.fr.html. Vous pouvez redistribuer et/ou modifier le contenu de ce programme suivant les termes de la GNU GPL version 3 ou ultérieure telle que publiée par la Free Software Foundation. Consultez la GNU General Public License pour plus de details.
