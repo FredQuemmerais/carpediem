@@ -53,7 +53,7 @@ ETAPE 12 - CALCUL D'UN INDICE DE CONFIANCE POUR LES RELATIONS THEORIQUES <br/>
 <br/>
 <br/>
 
-**Déroulement général de l'analyse avec le script "analyse_etape2_monte_carlo_publication.R" : **<br/>
+**Déroulement général de l'analyse avec le script "analyse_etape2_monte_carlo_publication.R":** <br/>
 Lire le guide d'utilisation pour obtenir des informations plus détaillées. <br/>
 Le script réalise l'analyse du risque d'effets cumulés entre des pressions anthropiques et des habitats benthiques en réalisant des simulations de Monte-Carlo qui permettent à chaque simulation de choisir des valeurs au hasard pour 7 critères intervenants dans le calcul. <br/>
 Il est imperatif d'avoir réalisé l'analyse étape 1 (script "analyse_etape1_refc_publication_v1.R") au préalable. <br/>
