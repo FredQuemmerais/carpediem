@@ -56,55 +56,92 @@ Choose a self-explaining name for your project.
 ## Description
 
 
-Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018)<br/>
-Date            : 2022/10/06
-Version code    : 1.0
-Version R       : R-3.5.1
-Auteurs         : Alice Vanhoutte-Brunier, Julien Barrere
-Contributeurs   : Frederic Quemmerais-Amice, Guilhem Autret
-Contact         : frederic.quemmerais-amice@ofb.gouv.fr
-
-Office Français de la Biodiversité (https://www.ofb.gouv.fr/)
-
-
-
-## Installation et utilisation
-Lire la documentation technique disponible dans le dossier "documentation"
-Barrere Julien, Autret Guilhem, Quemmerais-Amice Frédéric, 2022. Guide d'utilisation des outils d'analyses de données du projet Carpediem: cartographie du risque d'effets cumulés sur les habitats benthiques. Version 7.1 publique, octobre 2022, 149 pages.
-
-
-Déroulement général de l'analyse du script 1 "analyse_etape1_refc_publication_v1.R" (voir le guide d'utilisation :
-Les paramétrages de l'analyse sont renseignés dans un fichier Excel contenu dans le dossier "PARAM" du dossier "CODES_CARPEDIEM". Dans le code, seuls les paramètres "fileparam" et "userdir" correspondant respectivement au nom du fichier .xlsx de paramétrage et au chemin d'accès du dossier "CODES_CARPEDIEM" sont a renseigner aux lignes x et y.
-Lecture et import des tables de données sources contenues dans une base de données PostgreSQL (locale et/ou distante).
-Export des résultats dans la base de données, dans de nouvelles tables, dans un schéma à spécifier.
-
-Les différentes étapes du script sont :
-ETAPE 01 - LECTURE DE FONCTIONS DECRITES DANS DU CODE SOURCE
-ETAPE 02 - LECTURE DES PARAMETRES DU FICHIER EXCEL ET ECRITURE DANS LA LISTE config
-ETAPE 03 - IMPORT DES TABLES DE LA BASE DE DONNEES
-ETAPE 04 - GESTION DES INDICES ET DIMENSIONS, stockage dans des listes     
-ETAPE 05 - DONNEES HABITATS ET SENSIBILITE   
-ETAPE 06 - CARTOGRAPHIE DES ACTIVITES
-ETAPE 07 - CARTOGRAPHIE DES PRESSIONS
-ETAPE 08 - CARTOGRAPHIE DU RISQUE D'EXPOSITION PRESSION / MULTI-PRESSIONS
-ETAPE 09 - CALCUL DU RISQUE D'EFFETS // RISQUE D'EFFETS CONCONMITANTS
-ETAPE 10 - REALISATION ET SAUVEGARDE DE GRAPHIQUES REPRESENTATIFS DES RESULTATS
-ETAPE 11 - EXPORT DES RESULTATS SOUS FORME DE TABLES DANS LA BASE DE DONNEES
-ETAPE 12 - CALCUL D'UN INDICE DE CONFIANCE POUR LES RELATIONS THEORIQUES
-
-
-
-Déroulement général de l'analyse du script 1 "analyse_etape2_monte_carlo_publication.R" (voir le guide d'utilisation :
-
-
-
-
-Déroulement général de l'analyse du script 1 "analyse_etape3_graphiques_publication.r" (voir le guide d'utilisation :
+Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018) <br/>
+Date            : 2022/10/06 <br/>
+Version code    : 1.0 <br/>
+Version R       : R-3.5.1 <br/>
+Auteurs         : Alice Vanhoutte-Brunier, Julien Barrere <br/>
+Contributeurs   : Frederic Quemmerais-Amice, Guilhem Autret <br/>
+Contact         : frederic.quemmerais-amice@ofb.gouv.fr <br/>
+Office Français de la Biodiversité (https://www.ofb.gouv.fr/) <br/>
 
 
 ## Méthodologie
-La méthode d'analyse et un premier exemple d'utilisation est publié dans l'article suivant :
-Quemmerais-Amice Frédéric, Barrere Julien, La Rivière Marie, Contin Gabriel, Bailly Denis, 2020. A Methodology and Tool for Mapping the Risk of Cumulative Effects on Benthic Habitats. Frontiers in Marine Science. 7:569205. https://doi.org/10.3389/fmars.2020.569205
+La méthode d'analyse et un premier exemple d'utilisation sont publié dans l'article suivant : <br/>
+Quemmerais-Amice Frédéric, Barrere Julien, La Rivière Marie, Contin Gabriel, Bailly Denis, 2020. <br/>
+A Methodology and Tool for Mapping the Risk of Cumulative Effects on Benthic Habitats. Frontiers in Marine Science. 7:569205 <br/>
+**https://doi.org/10.3389/fmars.2020.569205**
+
+
+## Installation et utilisation
+**Lire la documentation technique disponible dans le dossier "documentation" :** <br/>
+Barrere Julien, Autret Guilhem, Quemmerais-Amice Frédéric, 2022. Guide d'utilisation des outils d'analyses de données du projet Carpediem: cartographie du risque d'effets cumulés sur les habitats benthiques. Version 7.1 publique, octobre 2022, 149 pages.
+
+**Téléchargez et dézippez le dossier "CODES_CARPEDIEM.zip" contenu dans le dossier "application_carpediem" sur votre ordinateur, ne changez pas le nom du dossier créé.** <br/>
+<br/>
+
+**Déroulement général de l'analyse avec le script "analyse_etape1_refc_publication_v1.R"** <br/>
+Lire le guide d'utilisation pour obtenir des informations plus détaillées. <br/>
+Le script réalise l'analyse par défaut (c'est à dire cumulative) du risque d'effets cumulés entre des pressions anthropiques et des habitats benthiques. <br/>
+
+Les paramétrages de l'analyse sont renseignés dans un fichier Excel contenu dans le dossier "PARAM" du dossier "CODES_CARPEDIEM". <br/>
+Dans le code, seuls les paramètres **"fileparam"** et **"userdir"** correspondant respectivement au nom du fichier .xlsx de paramétrage et au chemin d'accès du dossier "CODES_CARPEDIEM" sont a renseigner aux lignes 66 et 69. <br/>
+Lecture et import des tables de données sources contenues dans une base de données PostgreSQL (locale et/ou distante). <br/>
+Export des résultats dans la base de données, dans de nouvelles tables, dans un schéma à spécifier. <br/>
+<br/>
+Les différentes étapes du script sont : <br/>
+ETAPE 01 - LECTURE DE FONCTIONS DECRITES DANS DU CODE SOURCE <br/>
+ETAPE 02 - LECTURE DES PARAMETRES DU FICHIER EXCEL ET ECRITURE DANS LA LISTE config <br/>
+ETAPE 03 - IMPORT DES TABLES DE LA BASE DE DONNEES <br/>
+ETAPE 04 - GESTION DES INDICES ET DIMENSIONS, stockage dans des listes <br/>
+ETAPE 05 - DONNEES HABITATS ET SENSIBILITE <br/>
+ETAPE 06 - CARTOGRAPHIE DES ACTIVITES <br/>
+ETAPE 07 - CARTOGRAPHIE DES PRESSIONS <br/>
+ETAPE 08 - CARTOGRAPHIE DU RISQUE D'EXPOSITION PRESSION / MULTI-PRESSIONS <br/>
+ETAPE 09 - CALCUL DU RISQUE D'EFFETS // RISQUE D'EFFETS CONCONMITANTS <br/>
+ETAPE 10 - REALISATION ET SAUVEGARDE DE GRAPHIQUES REPRESENTATIFS DES RESULTATS <br/>
+ETAPE 11 - EXPORT DES RESULTATS SOUS FORME DE TABLES DANS LA BASE DE DONNEES <br/>
+ETAPE 12 - CALCUL D'UN INDICE DE CONFIANCE POUR LES RELATIONS THEORIQUES <br/>
+<br/>
+<br/>
+
+
+
+**Déroulement général de l'analyse avec le script "analyse_etape2_monte_carlo_publication.R" : **<br/>
+Lire le guide d'utilisation pour obtenir des informations plus détaillées. <br/>
+Le script réalise l'analyse du risque d'effets cumulés entre des pressions anthropiques et des habitats benthiques en réalisant des simulations de Monte-Carlo qui permettent à chaque simulation de choisir des valeurs au hasard pour 7 critères intervenants dans le calcul. <br/>
+Il est imperatif d'avoir réalisé l'analyse étape 1 (script "analyse_etape1_refc_publication_v1.R") au préalable. <br/>
+Les paramétrages de l'analyse doivent être renseignés dans le fichier de paramétrage .xlsx utilisé à l'étape précédente et stocké dans le dossier "PARAM" du dossier "CODES_CARPEDIEM". <br/>
+Seul l'onglet "simulation_monte_carlo" est a renseigner. <br/>
+Dans le code, seuls les paramètres **"fileparam"** et **"userdir"** correspondant respectivement au nom du fichier .xlsx de paramétrage et au chemin d'accès du dossier "CODES_CARPEDIEM" sont a renseigner aux lignes 63 et 65. <br/>
+Lecture et import des tables de données sources contenues dans une base de données PostgreSQL (locale et/ou distante). <br/>
+Export des résultats dans la base de données, dans de nouvelles tables, dans un schéma à spécifier. <br/>
+<br/>
+
+Les différentes étapes du script sont : <br/>
+ETAPE 1 - IMPORT DES DONNEES ACTIVITES ET HABITATS <br/>
+ETAPE 2 - CODAGE DES FONCTIONS ASSOCIEES AUX FACTEURS <br/>
+ETAPE 3 - REALISATION DES SIMULATIONS <br/>
+<br/>
+<br/>
+
+
+**Déroulement général de l'analyse avec le script "analyse_etape3_graphiques_publication.r" :** <br/>
+Lire le guide d'utilisation pour obtenir des informations plus détaillées. <br/>
+Le script réalise des analyses statistiques et des graphiques à partir des resultats de l'étape 1 et sur des zones d'intérêts définis par l'utilisateur. <br/>
+Il est imperatif d'avoir réalisé l'analyse étape 1 (script "analyse_etape1_refc_publication_v1.R") au préalable. <br/>
+Les paramétrages de l'analyse doivent être renseignés dans le fichier de paramétrage .xlsx utilisé à l'étape précédente et stocké dans le dossier "PARAM" du dossier "CODES_CARPEDIEM". <br/>
+Seul l'onglet "statistiques_par_zones" est a renseigner. <br/>
+
+Dans le code, seuls les paramètres **"fileparam"** et **"userdir"** correspondant respectivement au nom du fichier .xlsx de paramétrage et au chemin d'accès du dossier "CODES_CARPEDIEM" sont a renseigner aux lignes 64 et 66. <br/>
+Lecture et import des tables de données sources contenues dans une base de données PostgreSQL (locale et/ou distante). <br/>
+Export des graphiques au format image dans le dossier "OUTPUTS/graphs". <br/>
+<br/>
+
+Les différentes étapes du script sont : <br/>
+ETAPE 1 - LECTURE DU FICHIER DE PARAMETRAGE ET IMPORT DES DONNEES <br/>
+ETAPE 2 - PRODUCTION D'UNE MATRICE ACTIVITE PRESSION REDUITE AUX ACTIVITES ET PRESSIONS PRISES EN COMPTE DANS L'EVALUATION <br/>
+ETAPE 3 - CREATION DES GRAPHES <br/>
 
 ## Support
 Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
