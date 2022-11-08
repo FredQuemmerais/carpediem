@@ -56,7 +56,7 @@ Choose a self-explaining name for your project.
 ## Description
 
 
-Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018)
+Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018)<br/>
 Date            : 2022/10/06
 Version code    : 1.0
 Version R       : R-3.5.1
