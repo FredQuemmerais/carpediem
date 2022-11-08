@@ -56,15 +56,15 @@ Choose a self-explaining name for your project.
 ## Description
 
 
-Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018)
-Date            : 2022/10/06
-Version code    : 1.0
-Version R       : R-3.5.1
-Auteurs         : Alice Vanhoutte-Brunier, Julien Barrere
-Contributeurs   : Frederic Quemmerais-Amice, Guilhem Autret
-Contact         : frederic.quemmerais-amice@ofb.gouv.fr
-
-Office Français de la Biodiversité (https://www.ofb.gouv.fr/)
+Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018)  
+Date            : 2022/10/06  
+Version code    : 1.0  
+Version R       : R-3.5.1  
+Auteurs         : Alice Vanhoutte-Brunier, Julien Barrere  
+Contributeurs   : Frederic Quemmerais-Amice, Guilhem Autret  
+Contact         : frederic.quemmerais-amice@ofb.gouv.fr  
+  
+Office Français de la Biodiversité (https://www.ofb.gouv.fr/)  
 
 
 
