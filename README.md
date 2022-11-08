@@ -3,9 +3,8 @@
 
 ## Description
 
-Projet          : code développé dans le cadre du projet CARPEDIEM (2016-2018) <br/>
-Date            : 2022/10/06 <br/>
-Version code    : 1.0 <br/>
+Projet          : codes développés dans le cadre du projet CARPEDIEM (2016-2018) <br/>
+Version         : 1.0 <br/>
 Version R       : R-3.5.1 <br/>
 Auteurs         : Alice Vanhoutte-Brunier, Julien Barrere <br/>
 Contributeurs   : Frederic Quemmerais-Amice, Guilhem Autret <br/>
@@ -15,6 +14,7 @@ Office Français de la Biodiversité (https://www.ofb.gouv.fr/) <br/>
 
 ## Méthodologie
 La méthode d'analyse est publiée dans l'article : <br/>
+Merci d'utiliser cette référence pour citer ces développements. <br/>
 Quemmerais-Amice Frédéric, Barrere Julien, La Rivière Marie, Contin Gabriel, Bailly Denis, 2020. <br/>
 A Methodology and Tool for Mapping the Risk of Cumulative Effects on Benthic Habitats. <br/>
 Frontiers in Marine Science. 7:569205 <br/>
