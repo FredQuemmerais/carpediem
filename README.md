@@ -29,6 +29,8 @@ Barrere Julien, Autret Guilhem, Quemmerais-Amice Frédéric, 2022. [Guide d'util
 **Téléchargez et dézippez le dossier ["CODES_CARPEDIEM.zip"](https://gitlab.ofb.fr/Frederic.QUEMMERAIS-AMICE/carpediem/-/blob/main/application_carpediem/CODES_CARPEDIEM.zip) contenu dans le dossier "application_carpediem" sur votre ordinateur, ne changez pas le nom du dossier créé.** <br/>
 <br/>
 
+Le paramétrage de toutes les analyses s'effectue dans le fichier .xlsx contenu dans le dossier "PARAM". Lire l'onglet "a_lire" avant toute opération. <br/>
+
 **Déroulement général de l'analyse avec le script "analyse_etape1_refc_publication_v1.R"** <br/>
 Lire le guide d'utilisation pour obtenir des informations plus détaillées. <br/>
 Le script réalise l'analyse par défaut (c'est à dire cumulative) du risque d'effets cumulés entre des pressions anthropiques et des habitats benthiques. <br/>
