@@ -26,7 +26,7 @@ Merci d'utiliser cette référence pour citer ces développements. <br/>
 **Lire la documentation technique disponible dans le dossier "documentation" :** <br/>
 Barrere Julien, Autret Guilhem, Quemmerais-Amice Frédéric, 2022. [Guide d'utilisation des outils d'analyses de données du projet Carpediem: cartographie du risque d'effets cumulés sur les habitats benthiques](https://gitlab.ofb.fr/Frederic.QUEMMERAIS-AMICE/carpediem/-/blob/bc6d65d05dd9c994a3e73c033189cc5c5a8f9924/documentation/Barrere_et_al_2022_guide_utilisation_outils_carpediem_benthos_v7-1_public.pdf). Version 7.1 publique, octobre 2022, 149 pages.
 
-**Téléchargez et dézippez le dossier ["CODES_CARPEDIEM.zip"](https://gitlab.ofb.fr/Frederic.QUEMMERAIS-AMICE/carpediem/-/blob/main/application_carpediem/CODES_CARPEDIEM.zip) contenu dans le dossier "application_carpediem" sur votre ordinateur, ne changez pas le nom du dossier créé.** <br/>
+**Téléchargez le dossier "CODES_CARPEDIEM" contenu dans le dossier "application_carpediem" sur votre ordinateur, ne changez pas le nom du dossier créé, conserver l'ensemble des sous dossiers et des fichiers (R et xlsx).** <br/>
 <br/>
 
 Le paramétrage de toutes les analyses s'effectue dans le fichier .xlsx contenu dans le dossier "PARAM". <br/>
