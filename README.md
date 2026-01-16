@@ -4,7 +4,7 @@
 ## Description
 
 Projet          : codes développés dans le cadre du projet CARPEDIEM (2016-2018) <br/>
-Version         : 1.0 <br/>
+Version         : 1.1 <br/>
 Version R       : R-3.5.1 <br/>
 Auteurs         : Alice Vanhoutte-Brunier, Julien Barrere <br/>
 Contributeurs   : Frederic Quemmerais-Amice, Guilhem Autret, Alexis Esquerre <br/>
