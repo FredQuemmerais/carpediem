@@ -1,7 +1,8 @@
 # CARPEDIEM - Script auxiliaire de paramétrage des chemins d'accès
 # Ce script auxiliaire sert à indiquer les chemins d'accès (nom de dossier, nom du fichier de paramétrage)
+# PAS BESOIN DE L'EXECUTER (fichier source !!!)
 
-# Date          : 20yy/mm/jj
+# Date          : 2026/03/13
 # Version code  : 1.0
 # Version R     : R-4.3.3
 # Auteurs       : Alexis Esquerré (Cerema) d'après les travaux de :
@@ -13,13 +14,13 @@
 # MERCI DE RENSEIGNER/VERIFIER CI-DESSOUS LES ELEMENTS DEMANDES
 
     # Nom du fichier de paramétrage (au format ODS) avec l'extension .ods
-fileparam         <- "fichier_parametrage_Norsaic - BSO_weighted.ods"
+fileparam         <- "fichier_parametrage_standard.ods"
 
     # Nom du fichier avec les matrices de sensibilité
-filesensi         <- "matrice_sensibilite_CD.ods"
+filesensi         <- "matrice_sensibilite_hab.ods"
 
     # Chemin d'accès absolu (p. ex. partant de votre répertoire C:/) vers le dossier Carpediem
-userdir           <- "C:/Users/alexis.esquerre/Desktop/srv60 (mais local)/Norsaic/Norsaic_IC_2caseStudies/00_Carpediem+_Norsaic"
+userdir           <- "C:/Users/alexis.esquerre/Desktop/Carpediem+/CARPEDIEM+" # pas de '/' à la fin
 
     # Dossier d'analyse (certaines versions de CD/certains dossiers ont plusieurs analyses différentes)
 moddir            <- paste0(userdir,"")
