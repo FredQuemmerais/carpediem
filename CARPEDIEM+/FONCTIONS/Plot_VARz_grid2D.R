@@ -29,8 +29,8 @@ Plot_VARz_grid2D <- function(VARval,grid_plot,config,VARname,VARattr){
   print(paste("# f_map_plot.R: Plot_VARz_grid2D : ",VARname,sep=""))
   # add the column "mesh to the IN matrix VARval -> VARplot
   # label de la ligne = numero de maille
-  i_idz    <- f_idFieldDBTable_from_nameField("idmesh",config$DBData$Data,st_drop_geometry(G_grid),"grid")
-  name_id  <- colnames(head(grid_plot))[i_idz]
+  # i_idz    <- f_idFieldDBTable_from_nameField("idmesh",config$DBData$Data,st_drop_geometry(G_grid),"grid")
+  # name_id  <- colnames(head(grid_plot))[i_idz] #MaJ AE 2026 Maintenant inutile, grid_z est reconstruit avec une colonne toujours nommee idmesh
   lplot <- grid_plot
   VARplot <- VARval
   #VARplot <- VARplot %>% mutate(!!VARname := ifelse(is.na(!!sym(VARname)), 0, !!sym(VARname))) # test lodier 010324 remplacement NA
@@ -40,7 +40,7 @@ Plot_VARz_grid2D <- function(VARval,grid_plot,config,VARname,VARattr){
     print(paste("# f_map_plot.R:    -- the variable ",VARname," is already in the grid ",sep=""))
   }else{
     print(paste("# f_map_plot.R:    -- the variable ",VARname," is not in the grid ",sep=""))
-    New_Attribut <- merge(grid_plot,VARplot,by.x=name_id,by.y="mesh",all.x=T,sort=FALSE)
+    New_Attribut <- merge(grid_plot,VARplot,by.x="idmesh",by.y="mesh",all.x=T,sort=FALSE)
     lplot <- New_Attribut
   }  
   
