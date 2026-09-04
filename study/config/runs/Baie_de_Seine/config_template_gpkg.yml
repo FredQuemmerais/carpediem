@@ -1,0 +1,314 @@
+# study/config/config.yml
+# Config Baie_de_Seine version Fichiers locaux
+
+project:
+  srm: MMN
+  
+db:
+  enable_postgis: yes
+  choice: local
+  data_source: flat_files
+
+inputs:
+  ods:
+    act_press: config/matrice_act_press.ods
+    sensi_hab_press: config/matrice_sensi_hab_press.ods
+    
+Calc:
+  agreg_sensib: 1
+  th_sensib: 20.0
+  l_corr_surfhab: yes
+  
+Outputs:
+  write_maps: yes
+  verbose_maps: no
+  export_details: yes
+  export_db: no
+  export_db_details: no
+  export_maps_Ai: yes
+  export_maps_Pj: yes
+  export_maps_REX_Pj: yes
+  
+datasets:
+- Table_code: grid
+  enabled: yes
+  Data_type: G
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  srm_col: srm
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  
+- Table_code: grid_zone
+  enabled: no
+  Data_type: G
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  zone_col: zone
+  
+- Table_code: habbenth
+  enabled: yes
+  Data_type: E
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  surfhab_col: surfhab_cel
+  habcode_col: cod_eunis
+  
+- Table_code: aquaculture
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols:
+  - i_pcml
+  - i_af
+  - i_cs
+  - i_cmf
+  - i_cmib
+  - i_oit
+  - i_clm
+
+- Table_code: artificialisation
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols: long_art
+  
+- Table_code: chalutage
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols:
+  - nbh_cha_fon_moy
+  - nbh_cha_per_moy
+  - nbh_cha_pel_moy
+  
+- Table_code: clapage
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols: i_rmc
+  
+- Table_code: drague
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols: nbh_dra_moy
+  
+- Table_code: dragage_port
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols: i_dpcn
+  
+- Table_code: extraction
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols: i_emm
+  
+- Table_code: navigation
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols: nav2012
+  
+- Table_code: nutriment
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols:
+  - i_enn
+  - i_enp
+  
+- Table_code: senne
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols:
+  - nbh_sen_dan_moy
+  - nbh_sen_cou_moy
+  
+act_col_mapping:
+  i_pcml: A_1_1_1
+  i_af: A_1_1_2
+  i_cs: A_1_1_3
+  i_cmf: A_1_1_4
+  i_cmib: A_1_3_3
+  i_oit: A_1_3_2
+  i_clm: A_1_4_1
+  long_art: A_4_1
+  nbh_cha_fon_moy: A_2_2_7
+  nbh_cha_per_moy: A_2_2_6
+  nbh_cha_pel_moy: A_2_3_4
+  i_rmc: A_5_3_2
+  nbh_dra_moy: A_2_2_5
+  i_dpcn: A_5_3_1
+  i_emm: A_5_3_3
+  nav2012: A_7_1_2
+  i_enn: A_6_2_1
+  i_enp: A_6_2_2
+  nbh_sen_dan_moy: A_2_2_2
+  nbh_sen_cou_moy: A_2_3_2
+  
+units:
+  areas:
+    target: m2
+    allowed:
+    - m2
+    - km2
+    - ha
+    HabBenth_z:
+      E_surfhab: m2
+      E_surfmer: km2
+    Grid_z:
+      G_surfmesh: km2
+      G_surfmer: km2
+      
+analyses:
+  monte_carlo:
+    enabled: yes
+    nbsimul: 100
+    thres_stat:
+    - 10.0
+    - 25.0
+    # Facteurs d'incertitude
+    # Convention : 1=aléatoire à chaque simulation, 2-5=modalité fixe, 0=désactivé
+    factors:
+      X1_mat_AP: 2      # 1=aléa, 2=médiane (défaut), 3=précaution, 4=binaire
+      X2_relation_AP: 2 # 1=aléa, 2=linéaire (défaut), 3=optimiste, 4=pessimiste, 5=logistique
+      X3_var_sensi: 0   # 0=sans IC (défaut), 1=avec IC (perturbe sensibilités)
+      X4_var_ccr_AP: 0  # 0=sans IC (défaut), 1=avec IC (perturbe CCR)
+      X5_var_act: 0     # 0=sans IQ (défaut), 1=avec IQ (perturbe activités)
+      X6_distance: 0    # 0=sans (défaut), 1=avec fonction distance
+      X7_mat_sensi: 2   # 1=aléa, 2=précaution (défaut), 3=médiane
+      X8_var_hab: 0     # 0=sans (défaut) ; 1=avec perturbation surfaces habitats (f_sensib sur hab_iq)
+      X9_norm_form: 2   # 1=aléa ; 2=log (défaut) ; 3=linéaire ; 4=sigmoïde
+      X10_agreg_press: 3 # 1=aléa ; 2=additif (défaut) ; 3=synergique ; 4=antagoniste
+      
+    export_simul: no
+    export_result: no
+    lrepr_activite: no
+    lsauv_activite: yes
+    lrepr_iq: no
+    lsauv_iq: yes
+    lrepr_hab_sensib: no
+    lsauv_hab_sensib: yes
+    lrepr_grid_z: no
+    lsauv_grid_z: yes
+    daterepr: ''
+    daterepr_activite: ''
+    daterepr_iq: ''
+    daterepr_hab_sensib: ''
+    daterepr_grid_z: ''
+    
+  robustesse_deterministe:
+    enabled: no
+    scenarios:
+      X1_mat_AP:
+        - 2
+        - 3
+        - 4
+      X2_relation_AP:
+        - 2
+        - 3
+        - 4
+        - 5
+      X7_mat_sensi:
+        - 2
+        - 3
+      X6_distance:
+        - 0
+        - 1
+      X9_norm_form:   
+        - 2
+        - 3
+        - 4
+      X10_agreg_press:  
+        - 2
+        - 3
+        - 4    
+        
+  robustesse_stoch:
+    enabled: yes
+    
+  sensibilite_formelle:
+    enabled: yes
+    methode: "shapley"
+    m: 50
+    nrep: 5
+    facteurs:
+      X1_mat_AP:
+        - 2
+        - 3
+        - 4
+      X2_relation_AP:
+        - 2
+        - 3
+        - 4
+        - 5
+      X7_mat_sensi:
+        - 2
+        - 3
+      X6_distance:
+        - 0
+        - 1
+      X3_var_sensi:
+        - 0
+        - 1
+      X4_var_ccr_AP:
+        - 0
+        - 1
+      X5_var_act:
+        - 0
+        - 1
+      X8_var_hab:
+        - 0
+        - 1
+      X9_norm_form:
+        - 2
+        - 3
+        - 4
+      X10_agreg_press:
+        - 2
+        - 3
+        - 4
+      
+Step3:
+  enabled: yes
+  mode: simplifie
+  zone_field: zone
+  
+report:
+  enabled: yes
+  output_file: report.html
+  maps_iframe_file: carte_interactive.html
+  include_plots: yes
+  include_monte_carlo: yes
+  include_files_links: yes

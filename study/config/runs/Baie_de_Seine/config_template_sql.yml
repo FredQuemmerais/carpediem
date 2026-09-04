@@ -1,0 +1,316 @@
+project:
+  srm: MMN
+db:
+  enable_postgis: yes
+  choice: local
+  data_source: postgis
+inputs:
+  ods:
+    act_press: config/matrice_act_press.ods
+    sensi_hab_press: config/matrice_sensi_hab_press.ods
+Calc:
+  agreg_sensib: 1
+  th_sensib: 20.0
+  l_corr_surfhab: yes
+Outputs:
+  write_maps: yes
+  verbose_maps: no
+  export_details: yes
+  export_db: yes
+  export_db_details: yes
+  export_maps_Ai: yes
+  export_maps_Pj: yes
+  export_maps_REX_Pj: yes
+datasets:
+- Table_code: grid
+  enabled: yes
+  Data_type: G
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  srm_col: srm
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  DB_schema: bds_activites
+  DB_table: grille_carpediem_1m_2154
+- Table_code: grid_zone
+  enabled: no
+  Data_type: G
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  zone_col: zone
+  DB_schema: bds_activites
+  DB_table: gr_stat_zone_2154
+- Table_code: habbenth
+  enabled: yes
+  Data_type: E
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  surfhab_col: surfhab_cel
+  habcode_col: cod_eunis
+  DB_schema: bds_activites
+  DB_table: hab_2154
+- Table_code: aquaculture
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_aquaculture_2154
+  Data_type: A
+  intensity_cols:
+  - i_pcml
+  - i_af
+  - i_cs
+  - i_cmf
+  - i_cmib
+  - i_oit
+  - i_clm
+- Table_code: artificialisation
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_artif_2154
+  Data_type: A
+  intensity_cols: long_art
+- Table_code: chalutage
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_chalut_2154
+  Data_type: A
+  intensity_cols:
+  - nbh_cha_fon_moy
+  - nbh_cha_per_moy
+  - nbh_cha_pel_moy
+- Table_code: clapage
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_clapage_2154
+  Data_type: A
+  intensity_cols: i_rmc
+- Table_code: drague
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_drague_2154
+  Data_type: A
+  intensity_cols: nbh_dra_moy
+- Table_code: dragage_port
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_dragage_port_2154
+  Data_type: A
+  intensity_cols: i_dpcn
+- Table_code: extraction
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_extraction_2145
+  Data_type: A
+  intensity_cols: i_emm
+- Table_code: navigation
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_nav_2154
+  Data_type: A
+  intensity_cols: nav2012
+- Table_code: nutriment
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_nutriment_2145
+  Data_type: A
+  intensity_cols:
+  - i_enn
+  - i_enp
+- Table_code: senne
+  enabled: yes
+  Source: postgis
+  id_col: id2
+  geom_col: geom
+  DB_schema: bds_activites
+  DB_table: act_senne_2154
+  Data_type: A
+  intensity_cols:
+  - nbh_sen_dan_moy
+  - nbh_sen_cou_moy
+act_col_mapping:
+  i_pcml: A_1_1_1
+  i_af: A_1_1_2
+  i_cs: A_1_1_3
+  i_cmf: A_1_1_4
+  i_cmib: A_1_3_3
+  i_oit: A_1_3_2
+  i_clm: A_1_4_1
+  long_art: A_4_1
+  nbh_cha_fon_moy: A_2_2_7
+  nbh_cha_per_moy: A_2_2_6
+  nbh_cha_pel_moy: A_2_3_4
+  i_rmc: A_5_3_2
+  nbh_dra_moy: A_2_2_5
+  i_dpcn: A_5_3_1
+  i_emm: A_5_3_3
+  nav2012: A_7_1_2
+  i_enn: A_6_2_1
+  i_enp: A_6_2_2
+  nbh_sen_dan_moy: A_2_2_2
+  nbh_sen_cou_moy: A_2_3_2
+units:
+  areas:
+    target: m2
+    allowed:
+    - m2
+    - km2
+    - ha
+    HabBenth_z:
+      E_surfhab: m2
+      E_surfmer: km2
+    Grid_z:
+      G_surfmesh: km2
+      G_surfmer: km2
+analyses:
+  monte_carlo:
+    enabled: yes
+    nbsimul: 500
+    thres_stat:
+    - 10.0
+    - 25.0
+    factors:
+      X1_mat_AP: 1
+      X2_relation_AP: 1
+      X3_var_sensi: 1
+      X4_var_ccr_AP: 1
+      X5_var_act: 1
+      X6_distance: 1
+      X7_mat_sensi: 1
+      X8_var_hab: 1
+      X9_norm_form: 1
+      X10_agreg_press: 1
+    export_simul: yes
+    export_result: yes
+    lrepr_activite: no
+    lsauv_activite: yes
+    lrepr_iq: no
+    lsauv_iq: yes
+    lrepr_hab_sensib: no
+    lsauv_hab_sensib: yes
+    lrepr_grid_z: no
+    lsauv_grid_z: yes
+    daterepr: ''
+    daterepr_activite: ''
+    daterepr_iq: ''
+    daterepr_hab_sensib: ''
+    daterepr_grid_z: ''
+  robustesse_deterministe:
+    enabled: yes
+    scenarios:
+      X1_mat_AP:
+      - 2
+      - 3
+      - 4
+      X2_relation_AP:
+      - 2
+      - 3
+      - 4
+      - 5
+      X7_mat_sensi:
+      - 2
+      - 3
+      X6_distance:
+      - 0
+      - 1
+      X9_norm_form:
+      - 2
+      - 3
+      - 4
+      X10_agreg_press:
+      - 2
+      - 3
+      - 4
+  robustesse_stoch:
+    enabled: yes
+  sensibilite_formelle:
+    enabled: yes
+    methode: shapley
+    m: 100
+    nrep: 10
+    facteurs:
+      X1_mat_AP:
+      - 2
+      - 3
+      - 4
+      X2_relation_AP:
+      - 2
+      - 3
+      - 4
+      - 5
+      X3_var_sensi:
+      - 0
+      - 1
+      X4_var_ccr_AP:
+      - 0
+      - 1
+      X5_var_act:
+      - 0
+      - 1
+      X6_distance:
+      - 0
+      - 1
+      X7_mat_sensi:
+      - 2
+      - 3
+      X8_var_hab:
+      - 0
+      - 1
+      X9_norm_form:
+      - 2
+      - 3
+      - 4
+      X10_agreg_press:
+      - 2
+      - 3
+      - 4
+Step3:
+  enabled: yes
+  mode: simplifie
+  zone_field: zone
+report:
+  enabled: yes
+  output_file: report.html
+  maps_iframe_file: carte_interactive.html
+  include_plots: yes
+  include_monte_carlo: yes
+  include_files_links: yes
+DBConnectlocal:
+  drv: RPostgres
+  host: localhost
+  port: 5432
+  dbname: Baie_de_Seine
+  user: postgres
+  password: '2710'

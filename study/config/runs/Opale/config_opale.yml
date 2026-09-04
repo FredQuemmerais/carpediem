@@ -1,0 +1,283 @@
+project:
+  srm: MMN
+db:
+  enable_postgis: yes
+  choice: local
+DBConnectlocal:
+  drv: RPostgres
+  host: localhost
+  port: 5432
+  dbname: Opale
+  user: postgres
+  password: '2710'
+inputs:
+  ods:
+    act_press: config/matrice_act_press_opale.ods
+    sensi_hab_press: config/matrice_sensi_ete_opale.ods
+Calc:
+  agreg_sensib: 1
+  th_sensib: 50.0
+  l_corr_surfhab: yes
+Outputs:
+  write_maps: yes
+  verbose_maps: no
+  export_details: yes
+  export_db: yes
+  export_db_details: yes
+  export_maps_Ai: yes
+  export_maps_Pj: yes
+  export_maps_REX_Pj: yes
+datasets:
+- Table_code: grid
+  enabled: yes
+  Data_type: G
+  Source: postgis
+  DB_schema: rnn_car
+  DB_table: gr_carroyage_v7_zone_rnn_v3_2154
+  id_col: id2
+  geom_col: geom
+  srm_col: srm
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+- Table_code: grid_zone
+  enabled: yes
+  Data_type: G
+  Source: postgis
+  DB_schema: rnn_car
+  DB_table: gr_carroyage_v7_zone_rnn_v3_2154
+  id_col: id2
+  geom_col: geom
+  srm_col: srm
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  zone_col: rnn_id
+- Table_code: habbenth
+  enabled: yes
+  Data_type: E
+  Source: postgis
+  DB_schema: rnn_pho
+  DB_table: gr_pho_v03_2154
+  id_col: id2
+  geom_col: geom
+  srm_col: srm
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  surfhab_col: surfhab_cel
+  habcode_col: code_reposoir
+- Table_code: nouveau_act
+  enabled: yes
+  Source: postgis
+  DB_schema: rnn_act
+  DB_table: act_rnn_ete3_03
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols:
+  - a_recp02f01a05
+  - a_secp01f02a01
+  - a_defa01f01a02
+  - a_reca01f04a01
+  - a_recp03f01a01
+  - a_amem01f03a01
+  - a_recp03f03a01
+  - a_recp03f03a02
+  - a_recp01f01a03
+  - a_recp03f03a09
+  - a_recp01f01a02
+  - a_recp01f01a01
+  - a_recp03f03a03
+  - a_pecp03f13a04
+  - a_recp01f04a02
+  - a_recd01f01a04
+  - a_recd01f01a03
+  - a_recp03f03a04
+  - a_recp03f02a05
+  - a_terr05f01a03
+  - a_terr05f01a06
+  - a_terr05f01a07
+  - a_terr05f01a08
+  - a_terr05f01a04
+  - a_terr05f01a02
+  - a_terr05f01a05
+  - a_reca01f03a01
+  - a_recp02f03a01
+  - a_recp01f05a03
+  - a_recp03f06a02
+  - a_recp03f03a10
+  - a_tram01f01a11
+  - a_recp02f02a01
+  - a_recp03f03
+  - a_recm05f05a03
+  - a_recm05f03a01
+  - a_recm05f03a02
+  - a_tram01f01a10
+  - a_recm05f05a09
+  - a_pecr01
+  - a_pecr01f06a01
+  - a_pecr01f01a02
+  - a_pecp01f01a02
+  - a_pecr02f02a02
+  - a_recp02f03a02
+  - a_recp03f03a07
+  - a_recm05f05a06
+  - a_recm05f04a01
+  - a_recp03f05a02
+  - a_recp03f05a03
+  - a_recp03f08a01
+  - a_recp03f06a01
+  - a_scim01f01a01
+  - a_recp01f01a04
+  - a_recp02f01a06
+  - a_recp02f01a07
+  - a_recp02f02a02
+  - a_reca01f04a03
+  - a_tram01f01a02
+  - a_tram01f01a09
+  - a_secp01f01a01
+  - a_recp01f05a01
+  - a_recp01f05a02
+  - a_recp01f05a04
+  - a_recm03f05a01
+  - a_cirp01f01a01
+  - a_cirp01f01a02
+  - a_recm05f07a01
+  - a_tram01f01a06
+  - a_tram01f01a08
+act_col_mapping:
+  a_recp02f01a05: a_recp02f01a05
+  a_secp01f02a01: a_secp01f02a01
+  a_defa01f01a02: a_defa01f01a02
+  a_reca01f04a01: a_reca01f04a01
+  a_recp03f01a01: a_recp03f01a01
+  a_amem01f03a01: a_amem01f03a01
+  a_recp03f03a01: a_recp03f03a01
+  a_recp03f03a02: a_recp03f03a02
+  a_recp01f01a03: a_recp01f01a03
+  a_recp03f03a09: a_recp03f03a09
+  a_recp01f01a02: a_recp01f01a02
+  a_recp01f01a01: a_recp01f01a01
+  a_recp03f03a03: a_recp03f03a03
+  a_pecp03f13a04: a_pecp03f13a04
+  a_recp01f04a02: a_recp01f04a02
+  a_recd01f01a04: a_recd01f01a04
+  a_recd01f01a03: a_recd01f01a03
+  a_recp03f03a04: a_recp03f03a04
+  a_recp03f02a05: a_recp03f02a05
+  a_terr05f01a03: a_terr05f01a03
+  a_terr05f01a06: a_terr05f01a06
+  a_terr05f01a07: a_terr05f01a07
+  a_terr05f01a08: a_terr05f01a08
+  a_terr05f01a04: a_terr05f01a04
+  a_terr05f01a02: a_terr05f01a02
+  a_terr05f01a05: a_terr05f01a05
+  a_reca01f03a01: a_reca01f03a01
+  a_recp02f03a01: a_recp02f03a01
+  a_recp01f05a03: a_recp01f05a03
+  a_recp03f06a02: a_recp03f06a02
+  a_recp03f03a10: a_recp03f03a10
+  a_tram01f01a11: a_tram01f01a11
+  a_recp02f02a01: a_recp02f02a01
+  a_recp03f03: a_recp03f03
+  a_recm05f05a03: a_recm05f05a03
+  a_recm05f03a01: a_recm05f03a01
+  a_recm05f03a02: a_recm05f03a02
+  a_tram01f01a10: a_tram01f01a10
+  a_recm05f05a09: a_recm05f05a09
+  a_pecr01: a_pecr01
+  a_pecr01f06a01: a_pecr01f06a01
+  a_pecr01f01a02: a_pecr01f01a02
+  a_pecp01f01a02: a_pecp01f01a02
+  a_pecr02f02a02: a_pecr02f02a02
+  a_recp02f03a02: a_recp02f03a02
+  a_recp03f03a07: a_recp03f03a07
+  a_recm05f05a06: a_recm05f05a06
+  a_recm05f04a01: a_recm05f04a01
+  a_recp03f05a02: a_recp03f05a02
+  a_recp03f05a03: a_recp03f05a03
+  a_recp03f08a01: a_recp03f08a01
+  a_recp03f06a01: a_recp03f06a01
+  a_scim01f01a01: a_scim01f01a01
+  a_recp01f01a04: a_recp01f01a04
+  a_recp02f01a06: a_recp02f01a06
+  a_recp02f01a07: a_recp02f01a07
+  a_recp02f02a02: a_recp02f02a02
+  a_reca01f04a03: a_reca01f04a03
+  a_tram01f01a02: a_tram01f01a02
+  a_tram01f01a09: a_tram01f01a09
+  a_secp01f01a01: a_secp01f01a01
+  a_recp01f05a01: a_recp01f05a01
+  a_recp01f05a02: a_recp01f05a02
+  a_recp01f05a04: a_recp01f05a04
+  a_recm03f05a01: a_recm03f05a01
+  a_cirp01f01a01: a_cirp01f01a01
+  a_cirp01f01a02: a_cirp01f01a02
+  a_recm05f07a01: a_recm05f07a01
+  a_tram01f01a06: a_tram01f01a06
+  a_tram01f01a08: a_tram01f01a08
+units:
+  areas:
+    target: m2
+    allowed:
+    - m2
+    - km2
+    - ha
+    HabBenth_z:
+      E_surfhab: m2
+      E_surfmer: km2
+    Grid_z:
+      G_surfmesh: km2
+      G_surfmer: km2
+Step2:
+  enabled: yes
+Step3:
+  enabled: yes
+  mode: simplifie
+  zone_field: zone
+report:
+  enabled: yes
+  output_file: report.html
+  maps_iframe_file: carte_interactive.html
+  include_plots: yes
+  include_monte_carlo: yes
+  include_files_links: yes
+analyses:
+  monte_carlo:
+    enabled: yes
+    nbsimul: 20
+    thres_stat:
+    - 10.0
+    - 25.0
+    factors:
+      X1_mat_AP: 2
+      X2_relation_AP: 2
+      X3_var_sensi: 0
+      X4_var_ccr_AP: 1
+      X5_var_act: 0
+      X6_distance: 0
+      X7_mat_sensi: 2
+      X8_var_hab: 0        # 0=sans (défaut) ; 1=avec perturbation surfaces habitats (f_sensib sur hab_iq)
+      X9_norm_form: 2       # 1=aléa ; 2=log (défaut) ; 3=linéaire ; 4=sigmoïde
+      X10_agreg_press: 2    # 1=aléa ; 2=additif (défaut) ; 3=synergique ; 4=antagoniste
+    export_simul: yes
+    export_result: yes
+    export_scheme: resultats_test2
+    db_choice: local
+    lrepr_activite: no
+    lsauv_activite: yes
+    lrepr_iq: no
+    lsauv_iq: yes
+    lrepr_hab_sensib: no
+    lsauv_hab_sensib: yes
+    lrepr_grid_z: no
+    lsauv_grid_z: yes
+    daterepr: ''
+    daterepr_activite: ''
+    daterepr_iq: ''
+    daterepr_hab_sensib: ''
+    daterepr_grid_z: ''
+  robustesse_deterministe:
+    enabled: yes
+  robustesse_stoch:
+    enabled: yes
+  sensibilite_formelle:
+    enabled: no

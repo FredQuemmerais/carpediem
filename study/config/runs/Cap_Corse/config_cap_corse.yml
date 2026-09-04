@@ -1,0 +1,158 @@
+project:
+  srm: MED
+db:
+  enable_postgis: yes
+  choice: local
+  data_source: postgis
+DBConnectlocal:
+  drv: RPostgres
+  host: localhost
+  port: 5432
+  dbname: PNM_Cap_Corse
+  user: postgres
+  password: '2710'
+inputs:
+  ods:
+    act_press: config/matrice_act_press_cap_corse.ods
+    sensi_hab_press: config/matrice_sensi_cap_corse.ods
+Calc:
+  agreg_sensib: 1
+  th_sensib: 20.0
+  l_corr_surfhab: yes
+Outputs:
+  write_maps: yes
+  verbose_maps: no
+  export_details: yes
+  export_db: yes
+  export_db_details: yes
+  export_maps_Ai: yes
+  export_maps_Pj: yes
+  export_maps_REX_Pj: yes
+datasets:
+- Table_code: grid
+  enabled: yes
+  Data_type: G
+  Source: postgis
+  DB_schema: cc_activites
+  DB_table: grd_hex_cap_corse
+  id_col: id2
+  geom_col: geom
+  srm_col: srm
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+- Table_code: habbenth
+  enabled: yes
+  Data_type: E
+  Source: postgis
+  DB_schema: cc_activites
+  DB_table: grd_hab_cap_corse
+  id_col: id2
+  geom_col: geom
+  surfmesh_col: surf_cel
+  surfmer_col: surfmer
+  surfhab_col: surfhab_cel
+  habcode_col: Code_H
+- Table_code: activites
+  enabled: yes
+  Source: postgis
+  DB_schema: cc_activites
+  DB_table: grd_act_cap_corse
+  id_col: id2
+  geom_col: geom
+  Data_type: A
+  intensity_cols:
+  - plongee
+  - chalut
+act_col_mapping:
+  plongee: A_4
+  chalut: A_5
+units:
+  areas:
+    target: m2
+    allowed:
+    - m2
+    - km2
+    - ha
+    HabBenth_z:
+      E_surfhab: m2
+      E_surfmer: km2
+    Grid_z:
+      G_surfmesh: km2
+      G_surfmer: km2
+analyses:
+  monte_carlo:
+    enabled: yes
+    nbsimul: 5
+    thres_stat:
+    - 10.0
+    - 25.0
+    factors:
+      X1_mat_AP: 2
+      X2_relation_AP: 2
+      X3_var_sensi: 0
+      X4_var_ccr_AP: 1
+      X5_var_act: 0
+      X6_distance: 0
+      X7_mat_sensi: 2
+      X8_var_hab: 0        # 0=sans (défaut) ; 1=avec perturbation surfaces habitats (f_sensib sur hab_iq)
+      X9_norm_form: 2       # 1=aléa ; 2=log (défaut) ; 3=linéaire ; 4=sigmoïde
+      X10_agreg_press: 2    # 1=aléa ; 2=additif (défaut) ; 3=synergique ; 4=antagoniste
+      
+    export_simul: yes
+    export_result: yes
+    export_scheme: resultats
+    db_choice: local
+    lrepr_activite: no
+    lsauv_activite: yes
+    lrepr_iq: no
+    lsauv_iq: yes
+    lrepr_hab_sensib: no
+    lsauv_hab_sensib: yes
+    lrepr_grid_z: no
+    lsauv_grid_z: yes
+    daterepr: ''
+    daterepr_activite: ''
+    daterepr_iq: ''
+    daterepr_hab_sensib: ''
+    daterepr_grid_z: ''
+  robustesse_deterministe:
+    enabled: yes
+    scenarios:
+      X1_mat_AP:
+      - 2
+      - 3
+      - 4
+      X2_relation_AP:
+      - 2
+      - 3
+      - 4
+      - 5
+      X7_mat_sensi:
+      - 2
+      - 3
+      X6_distance:
+      - 0
+      - 1
+  robustesse_stoch:
+    enabled: yes
+  sensibilite_formelle:
+    enabled: no
+    methode: morris
+    nbsimul: 1000
+    facteurs:
+    - X1_mat_AP
+    - X2_relation_AP
+    - X7_mat_sensi
+    - X6_distance
+    scalaire: mean
+Step3:
+  enabled: yes
+  mode: simplifie
+  zone_field: zone
+report:
+  enabled: yes
+  output_file: report.html
+  maps_iframe_file: carte_interactive.html
+  include_plots: yes
+  include_monte_carlo: yes
+  include_files_links: yes
