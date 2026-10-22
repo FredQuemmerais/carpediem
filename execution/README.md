@@ -86,6 +86,20 @@ study/inputs/
 ```
 <br>
 
+Plusieurs datasets peuvent aussi être regroupés dans un même GeoPackage multi-couches, en précisant le fichier et la couche avec les clés optionnelles `file` (chemin relatif à `study/inputs/`) et `layer` :
+
+```yaml
+- Table_code: chalutage
+  Data_type: A
+  file: peche.gpkg        # study/inputs/peche.gpkg
+  layer: chalut_fond      # couche du GeoPackage
+  id_col: id2
+  geom_col: geom
+  intensity_cols: nbh_cha_fon_moy
+```
+
+Règles de résolution du fichier : clés `file` / `layer` si elles sont renseignées ; sinon `Source: gpkg` avec `DB_table: fichier.gpkg::couche` (ou `Source: shp` avec `DB_table: fichier.shp`) ; sinon `<Table_code>.gpkg` puis `<Table_code>.shp`. Si le GeoPackage contient plusieurs couches et qu'aucune n'est précisée, la couche nommée comme le `Table_code` est utilisée ; à défaut, le pipeline s'arrête en listant les couches disponibles. <br>
+
 En mode `postgis`, les données doivent être rangées dans le schéma et la table déclaré dans `config$datasets`. <br>
 
 Types de données attendus (`Data_type`)
@@ -115,7 +129,7 @@ Avant le calcul, le pipeline exécute un contrôle de cohérence qui vérifie no
 - la présence des colonnes obligatoires selon le mode choisi, <br>
 - (en mode base de données, si `Field` est renseignée) l'existence effective du champ dans PostgreSQL. <br>
 
-Tout problème détecté est remonté de façon structurée (chemins d'accès, schémas/tables/champs, données géographiques) sans nécessairement interrompre l'exécution - à consulter dans les logs avant d'analyser les résultats.
+Tout problème détecté est remonté de façon structurée (chemins d'accès, schémas/tables/champs, données géographiques). En exécution batch (`run_batch.R`), un dossier manquant ou une donnée géographique introuvable ou illisible arrête le pipeline dès l'étape 0, avec la liste complète des problèmes ; les problèmes de schémas/tables/champs sont signalés en avertissement.
 
 ### Formatage des matrices (ODS)
 
@@ -359,8 +373,28 @@ sensibilite_formelle:
 
 Le fichier de config doit être cohérent avec le mode de source de données choisi :
 
-- **`data_source: postgis`** : chaque dataset doit renseigner `DB_schema` et `DB_table`, et les identifiants de connexion doivent être présents dans le bloc `DBConnectlocal` (ou équivalent selon `db.choice`).
+- **`data_source: postgis`** : chaque dataset doit renseigner `DB_schema` et `DB_table`, et les identifiants de connexion doivent être présents dans le bloc `DBConnectlocal` (ou équivalent selon `db.choice`). Les résultats sont copiés dans PostgreSQL si `Outputs.export_db` est vrai (valeur par défaut). Les paquets `DBI` et `RPostgres` ne sont requis que dans ce mode.
 - **`data_source: flat_files`** : les champs `DB_schema` / `DB_table` sont omis ; les fichiers `.gpkg` correspondants doivent être présents dans `study/inputs/` (voir section *Prérequis > Formatage des données et sources possibles*).
+
+### Exécution parallèle et reproductibilité
+
+Les étapes Monte Carlo (step2) et sensibilité formelle (step2d) sont parallélisées.
+
+- Nombre de workers : clé `execution.workers` si elle est renseignée, sinon variable d'environnement `CARPEDIEM_WORKERS`, sinon nombre de cœurs disponibles moins un (`parallelly::availableCores()`, qui respecte les limites CPU d'un conteneur).
+- Reproductibilité : une graine peut être fixée par `analyses.monte_carlo.seed`, `analyses.sensibilite_formelle.seed` ou `execution.seed`. Les tirages sont alors identiques d'un run à l'autre, quel que soit le nombre de workers.
+
+- Taille des objets envoyés aux workers : sur une grande zone d'étude, les données transmises à chaque worker peuvent dépasser la limite par défaut du paquet `future` (500 Mo). Le pipeline lève cette limite ; on peut en fixer une avec la clé `execution.globals_max_mb` ou la variable d'environnement `CARPEDIEM_GLOBALS_MAX_MB` (en Mo). Chaque worker reçoit une copie de ces données : prévoir la mémoire en conséquence.
+
+```yaml
+execution:
+  workers: 4
+  seed: 42
+  globals_max_mb: 2048   # optionnel
+```
+
+### Résultats Monte Carlo
+
+Quel que soit `db.data_source`, step2 écrit `monte_carlo_<date>.gpkg` dans le dossier du run : couche `statistiques` (fréquences top/bottom, moyenne, écart type et CV de REFC par maille) et, si `export_simul: yes`, couche `simulations` (une colonne par tirage). En mode `postgis`, `export_simul` / `export_result` déclenchent en plus l'export vers PostgreSQL.
 
 ### Notes sur le format YAML
 

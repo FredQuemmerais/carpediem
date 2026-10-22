@@ -657,8 +657,11 @@ f_radar_IC <- function(res1,
                          "Sensibilité\ndes habitats"
                        )) {
   
-  if (!requireNamespace("fmsb",   quietly = TRUE)) install.packages("fmsb")
-  if (!requireNamespace("scales", quietly = TRUE)) install.packages("scales")
+  for (pkg in c("fmsb", "scales")) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      stop("Package manquant: ", pkg, " (installer les dépendances avec renv::restore())")
+    }
+  }
   
   stopifnot(
     "res1$ctx manquant"       = !is.null(res1$ctx),

@@ -30,8 +30,9 @@ helper_files <- sort(list.files(helper_dir, pattern = "\\.R$", full.names = TRUE
 invisible(lapply(helper_files, source, chdir = TRUE))
 
 # ---- Vérifier librairies ------------------------------------------------
-pkgs <- c("sf", "DBI", "RPostgres", "readODS", "dplyr", "tidyr",
-          "tibble", "ggplot2")
+# Packages requis quel que soit le mode. DBI et RPostgres ne sont requis
+# qu'en mode postgis (vérifiés après lecture de la configuration).
+pkgs <- c("sf", "readODS", "dplyr", "tidyr", "tibble", "ggplot2")
 for (p in pkgs) {
   if (!requireNamespace(p, quietly = TRUE)) stop("Package manquant: ", p)
 }
@@ -48,6 +49,14 @@ config <- load_config(yaml_path)
 validate_config(config)
 paths  <- io_paths(config)
 
+if (identical(tolower(trimws(config$db$data_source %||% "postgis")), "postgis")) {
+  for (p in c("DBI", "RPostgres")) {
+    if (!requireNamespace(p, quietly = TRUE)) {
+      stop("Package manquant: ", p, " (requis en mode db.data_source = postgis)")
+    }
+  }
+}
+
 # ---- Connexion DB -------------------------------------------------------
 con <- get_db_conn(config, config$db$choice)
 on.exit(db_disconnect_safe(con), add = TRUE)
@@ -56,6 +65,26 @@ on.exit(db_disconnect_safe(con), add = TRUE)
 
 # STEP 0 - Checkup
 res0 <- step0_checkup(config, paths, con = con)
+
+# Arrêt immédiat si des chemins ou des données d'entrée posent problème :
+# tous les problèmes sont listés en une fois, au lieu d'une erreur obscure en étape 1.
+report_step0_problems <- function(problemes) {
+  bloquants <- c(problemes$chemins_acces, problemes$donnees_geographiques)
+  avertissements <- problemes$schemas_tables_champs
+  if (length(avertissements) > 0) {
+    warning("[STEP0] ", paste(names(avertissements), unlist(avertissements), sep = " : ", collapse = "\n"),
+            call. = FALSE)
+  }
+  if (length(bloquants) > 0) {
+    # Liste complète via message() : R tronque les messages d'erreur (~1000 caractères)
+    message("[STEP0] ", length(bloquants), " problème(s) bloquant(s) :\n",
+            paste0("  - ", names(bloquants), " : ", unlist(bloquants), collapse = "\n"))
+    stop("[STEP0] ", length(bloquants), " problème(s) bloquant(s) sur les données d'entrée (détail ci-dessus).",
+         call. = FALSE)
+  }
+  invisible(TRUE)
+}
+report_step0_problems(res0$problemes)
 
 # STEP 1 - Analyse simple avec modèle de référence
 res1 <- step1_analyse_simple(config, paths, con = con, data = res0$list_sauv)

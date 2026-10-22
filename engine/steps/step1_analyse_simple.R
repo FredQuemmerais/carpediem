@@ -1648,10 +1648,10 @@ step1_analyse_simple <- function(config, paths, con, data) {
     cat("========================================\n\n")
     
     data_source <- tolower(trimws(config$db$data_source %||% "postgis"))
-    if (identical(data_source, "postgis")) {
+    if (identical(data_source, "postgis") && as_logical01(config$Outputs$export_db, default = TRUE)) {
       suppressMessages({export_gpkgs_to_postgres(config, outputs_dir = ctx$outputsdir)})
     } else {
-      message("  [flat_files] Export PostgreSQL ignoré — résultats disponibles dans : ", ctx$outputsdir)
+      message("  Export PostgreSQL non demandé : résultats disponibles dans ", ctx$outputsdir)
     }
     
     return(list(

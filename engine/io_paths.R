@@ -24,10 +24,13 @@ io_paths <- function(config = NULL, project_root = NULL) {
     config_dir        = file.path(study_dir, "config"),
     inputs_dir        = file.path(study_dir, "inputs"),
     outputs_dir       = file.path(study_dir, "outputs"),
+    cache_dir         = file.path(study_dir, "cache"),        # sauvegardes intermédiaires (.Rdata)
+    sig_dir           = file.path(study_dir, "inputs"),       # compatibilité : Source = shp / gpkg
     f_aux_monte_carlo = file.path(project_root, "engine", "functions", "f_aux_monte_carlo.R")
   )
   
   dir.create(paths$outputs_dir, recursive = TRUE, showWarnings = FALSE)
+  dir.create(paths$cache_dir,   recursive = TRUE, showWarnings = FALSE)
   
   paths
 }

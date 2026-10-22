@@ -3,7 +3,10 @@
 step1_init <- function(config, paths, con, data) {
   
   # Vérifier dépendances installées
-  pkgs <- c("sf","raster","DBI","RPostgres","ggplot2","ggmap","readODS","tidyverse")
+  pkgs <- c("sf", "ggplot2", "readODS", "dplyr", "tidyr")
+  if (identical(tolower(trimws(config$db$data_source %||% "postgis")), "postgis")) {
+    pkgs <- c(pkgs, "DBI", "RPostgres")
+  }
   for (p in pkgs) {
     if (!requireNamespace(p, quietly = TRUE)) stop("Package manquant: ", p)
   }
