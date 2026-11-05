@@ -1,0 +1,39 @@
+apiVersion: v2
+name: carpediem
+description: >-
+  Carpediem maps the risk of cumulative effects (RCE) of human activities on benthic
+  habitats, a key input of Cumulative Effects Assessments for ecosystem-based Maritime
+  Spatial Planning. It crosses benthic habitats and their sensitivity to pressures with the
+  distribution and intensity of human activities and the pressures they generate, and
+  produces a confidence index and, through Monte Carlo simulations, a measure of
+  variability. Developed by Quemmerais-Amice et al. (2020) during the Carpediem project
+  (France, Marine Strategy Framework Directive), it builds on Halpern et al. (2008).
+  Example dataset: North Sea (Norsaic). Contact: antonin.gimard@cerema.fr,
+  frederic.quemmerais-amice@ofb.gouv.fr
+icon: https://www.frontiersin.org/api/ipx/f=webp/https://www.frontiersin.org/files/Articles/1800336/xml-images/focsu-04-1800336-g0001.webp
+home: https://github.com/FredQuemmerais/carpediem/tree/carpediem_v2
+sources:
+  - https://github.com/FredQuemmerais/carpediem/tree/carpediem_v2
+keywords:
+  - cumulative
+  - impacts
+  - marine
+  - spatial
+  - planning
+  - biodiversity
+  - activities
+  - habitats
+  - pressures
+  - uncertainty
+maintainers:
+  - name: Antonin Gimard (Cerema)
+    email: antonin.gimard@cerema.fr
+  - name: Frédéric Quemmerais-Amice (OFB)
+    email: frederic.quemmerais-amice@ofb.gouv.fr
+type: application
+version: 2.1.0
+appVersion: "2.1.0"
+dependencies:
+  - name: library-chart
+    version: 1.5.14
+    repository: https://inseefrlab.github.io/helm-charts-interactive-services

@@ -94,13 +94,8 @@ load_config <- function(yaml_path) {
   
   # Désactivation automatique des exports DB en mode flat_files
   if (identical(ds, "flat_files")) {
-    if (!is.null(cfg$analyses$monte_carlo)) {
-      cfg$analyses$monte_carlo$export_simul  <- FALSE
-      cfg$analyses$monte_carlo$export_result <- FALSE
-      if (getOption("app.verbose", default = FALSE)) {
-        message("[load_config] Mode flat_files : export base de données désactivé, export fichiers actif.")
-      }
-    }
+    # export_simul / export_result sont conservés : en mode flat_files,
+    # step2 n'exporte que vers des fichiers (monte_carlo_<date>.gpkg).
     if (!is.null(cfg$Outputs)) {
       cfg$Outputs$export_db         <- FALSE
       cfg$Outputs$export_db_details <- FALSE

@@ -1,0 +1,26 @@
+resources:
+  requests:
+    cpu: "1000m"
+    memory: "2Gi"
+  limits:
+    cpu: "6000m"
+    memory: "8Gi"
+
+s3:
+  enabled: true
+  accessKeyId: ""
+  endpoint: ""
+  defaultRegion: ""
+  secretAccessKey: ""
+  sessionToken: ""
+  bucketName: ""
+
+vault:
+  enabled: true
+
+inputs:
+  CARPEDIEM_STUDY: "https://minio.dive.edito.eu/oidc-antoningimard/carpediem/mer_du_nord/study.tar.gz"
+  CARPEDIEM_CONFIG: "config/config_analyse_simple.yml"
+  CARPEDIEM_OUTPUT: "s3://${AWS_BUCKET_NAME}/carpediem/runs"
+  CARPEDIEM_RUN_DESCRIPTION: ""
+  CARPEDIEM_WORKERS: ""

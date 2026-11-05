@@ -101,10 +101,14 @@ step2_monte_carlo <- function(config, paths, con, res1, engine = NULL) {
   
   message(sprintf("Lancement de %d simulations Monte-Carlo (parallèle)...\n", nsim))
   
-  n_workers <- max(1L, parallel::detectCores() - 1L)
+  n_workers <- n_workers_for(config)
+  message("Workers : ", n_workers)
+  set_seed_if_any(config, mc_cfg)
   old_plan  <- future::plan()
   plan(multisession, workers = n_workers)
   on.exit(future::plan(old_plan), add = TRUE)
+  old_opt   <- set_globals_max_size(config)
+  on.exit(options(old_opt), add = TRUE)
   
   handlers(global = TRUE)
   handlers("txtprogressbar")
@@ -146,7 +150,28 @@ step2_monte_carlo <- function(config, paths, con, res1, engine = NULL) {
   simul_stat <- cbind(simul_stat, stats_simul[, -1])
   
   # ---- ETAPE 5 : Export ------------------------------------------------
-  if (isTRUE(mc_cfg$export_simul) || isTRUE(mc_cfg$export_result)) {
+  # 5.1 Export fichier (tous modes) : GeoPackage dans le dossier du run
+  mc_gpkg <- NULL
+  if (!is.null(ctx$outputsdir) && dir.exists(ctx$outputsdir)) {
+    mc_gpkg <- file.path(ctx$outputsdir, paste0("monte_carlo_", ctx$datesauv, ".gpkg"))
+    grid_mc <- grid_z[, "idmesh"]
+    grid_mc$idmesh <- as.character(grid_mc$idmesh)
+    to_layer <- function(df) {
+      df$idmesh <- as.character(df$idmesh)
+      dplyr::left_join(grid_mc, df, by = "idmesh")
+    }
+    sf::st_write(to_layer(simul_stat), dsn = mc_gpkg, layer = "statistiques",
+                 delete_dsn = TRUE, quiet = TRUE)
+    if (isTRUE(mc_cfg$export_simul)) {
+      sf::st_write(to_layer(simul_results), dsn = mc_gpkg, layer = "simulations",
+                   append = FALSE, quiet = TRUE)
+    }
+    message("  -> GeoPackage Monte Carlo : ", mc_gpkg)
+  }
+
+  # 5.2 Export PostgreSQL (mode postgis uniquement)
+  mode_flat <- identical(tolower(trimws(config$db$data_source %||% "postgis")), "flat_files")
+  if (!mode_flat && (isTRUE(mc_cfg$export_simul) || isTRUE(mc_cfg$export_result))) {
     message("\nExport vers PostgreSQL...")
     export_con <- get_db_conn(config, mc_cfg$db_choice %||% "local")
     on.exit(db_disconnect_safe(export_con), add = TRUE)
@@ -183,6 +208,7 @@ step2_monte_carlo <- function(config, paths, con, res1, engine = NULL) {
   return(list(
     simul_results = simul_results,
     simul_stat    = simul_stat,
+    gpkg          = mc_gpkg,
     stats_simul   = stats_simul,
     nsim          = nsim,
     thres_stat    = thres_stat,

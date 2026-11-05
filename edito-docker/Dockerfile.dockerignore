@@ -1,0 +1,16 @@
+.git
+.Rproj.user
+.Rhistory
+.RData
+renv/library
+renv/staging
+renv/local
+study/outputs
+**/.DS_Store
+# Not needed in the image (the build context is the repository root)
+edito-docker/Dockerfile*
+Donnees Mer du Nord
+CARPEDIEM+
+archives
+documentation
+migration_v1_v2

@@ -169,84 +169,38 @@ step0_checkup <- function(config, paths, con) {
       obj_name  <- base_name
       
       temp_obj <- NULL
-      
-      if (identical(source, "postgis")) {
-        
-        if (mode_flat) {
-          flat_path <- file.path(paths$inputs_dir, paste0(table_code, ".gpkg"))
-          if (!file.exists(flat_path)) {
-            flat_path <- file.path(paths$inputs_dir, paste0(table_code, ".shp"))
-          }
-          if (!file.exists(flat_path)) {
-            problemes$donnees_geographiques[[obj_name]] <- paste(
-              "Mode flat_files: fichier introuvable pour", table_code,
-              "dans", paths$inputs_dir,
-              "(cherché: .gpkg puis .shp)"
-            )
-            temp_obj <- NULL
-          } else {
-            temp_obj <- tryCatch(
-              sf::st_read(flat_path, quiet = TRUE),
-              error = function(e) {
-                problemes$donnees_geographiques[[obj_name]] <- paste(
-                  "Import flat_files échoué:", flat_path, "-", conditionMessage(e)
-                )
-                NULL
-              }
-            )
-          }
-          
-        } else {
-          schema <- as.character(row_data$DB_schema)
-          table  <- as.character(row_data$DB_table)
-          
-          temp_obj <- tryCatch(
-            read_pg_table(schema, table),
-            error = function(e) {
-              problemes$donnees_geographiques[[obj_name]] <- paste(
-                "Import postgis échoué:", schema, table, "-", conditionMessage(e)
-              )
-              NULL
-            }
-          )
-        }
-        
-      } else if (identical(source, "shp")) {
-        shp_path <- file.path(paths$sig_dir, as.character(row_data$DB_table))
+      err_msg  <- NULL
+
+      if (identical(source, "postgis") && !mode_flat) {
+        schema <- as.character(row_data$DB_schema)
+        table  <- as.character(row_data$DB_table)
         temp_obj <- tryCatch(
-          sf::st_read(shp_path, quiet = TRUE),
+          read_pg_table(schema, table),
           error = function(e) {
-            problemes$donnees_geographiques[[obj_name]] <- paste(
-              "Import SHP échoué:", shp_path, "-", conditionMessage(e)
-            )
+            err_msg <<- paste("Import postgis échoué:", schema, table, "-", conditionMessage(e))
             NULL
           }
         )
-        
-      } else if (identical(source, "gpkg")) {
-        parts <- strsplit(as.character(row_data$DB_table), "::", fixed = TRUE)[[1]]
-        if (length(parts) != 2) {
-          problemes$donnees_geographiques[[obj_name]] <- "Format GPKG attendu: 'fichier.gpkg::layer'"
-          temp_obj <- NULL
+      } else {
+        # Fichiers locaux : mode flat_files, ou Source = gpkg / shp
+        spec <- resolve_flat_dataset(row_data, paths$inputs_dir)
+        if (!is.null(spec$error)) {
+          err_msg <- spec$error
         } else {
-          gpkg_path <- file.path(paths$sig_dir, parts[1])
-          layer     <- parts[2]
           temp_obj <- tryCatch(
-            sf::st_read(dsn = gpkg_path, layer = layer, quiet = TRUE),
+            if (is.null(spec$layer)) sf::st_read(spec$path, quiet = TRUE)
+            else sf::st_read(spec$path, layer = spec$layer, quiet = TRUE),
             error = function(e) {
-              problemes$donnees_geographiques[[obj_name]] <- paste(
-                "Import GPKG échoué:", gpkg_path, "::", layer, "-", conditionMessage(e)
-              )
+              err_msg <<- paste("Import échoué:", spec$label, "-", conditionMessage(e))
               NULL
             }
           )
+          if (!is.null(temp_obj)) message("[step0] ", obj_name, " <- ", spec$label)
         }
-        
-      } else {
-        problemes$donnees_geographiques[[obj_name]] <- paste("Source non supportée:", as.character(row_data$Source))
-        temp_obj <- NULL
       }
-      
+
+      if (!is.null(err_msg)) problemes$donnees_geographiques[[obj_name]] <- err_msg
+
       list_sauv[[obj_name]] <- temp_obj
     }
     
@@ -308,4 +262,73 @@ step0_checkup <- function(config, paths, con) {
     problemes = problemes,
     list_sauv = list_sauv
   )
+}
+
+# Résout le fichier (et la couche) d'un dataset lu depuis des fichiers locaux.
+# Ordre de priorité :
+#   1. clés explicites `file` (relatif au dossier inputs) et `layer` (optionnelle) ;
+#   2. Source = gpkg avec DB_table = "fichier.gpkg::couche", ou Source = shp avec DB_table = "fichier.shp" ;
+#   3. par défaut : <Table_code>.gpkg, puis <Table_code>.shp.
+# Pour un GeoPackage sans couche précisée : couche unique, sinon couche nommée comme le Table_code,
+# sinon erreur (plus de lecture silencieuse de la première couche).
+resolve_flat_dataset <- function(row_data, inputs_dir) {
+  val <- function(col) {
+    if (!col %in% names(row_data)) return(NULL)
+    v <- as.character(row_data[[col]][[1]])
+    if (length(v) == 0 || is.na(v) || !nzchar(trimws(v))) NULL else trimws(v)
+  }
+  table_code <- as.character(row_data$Table_code)
+  source     <- norm_source(row_data$Source)
+  file  <- val("file")
+  layer <- val("layer")
+
+  if (is.null(file) && identical(source, "gpkg") && !is.null(val("DB_table"))) {
+    parts <- strsplit(val("DB_table"), "::", fixed = TRUE)[[1]]
+    file  <- parts[1]
+    if (length(parts) >= 2 && is.null(layer)) layer <- parts[2]
+  }
+  if (is.null(file) && identical(source, "shp") && !is.null(val("DB_table"))) {
+    file <- val("DB_table")
+  }
+
+  if (is.null(file)) {
+    candidates <- file.path(inputs_dir, paste0(table_code, c(".gpkg", ".shp")))
+    path <- candidates[file.exists(candidates)][1]
+    if (is.na(path)) {
+      return(list(error = paste0(
+        "Fichier introuvable pour '", table_code, "' dans ", inputs_dir,
+        " (cherché : ", table_code, ".gpkg puis ", table_code, ".shp ; ",
+        "ou préciser la clé 'file' du dataset)")))
+    }
+  } else {
+    path <- file.path(inputs_dir, file)
+    if (!file.exists(path)) {
+      return(list(error = paste0("Fichier introuvable pour '", table_code, "' : ", path)))
+    }
+  }
+
+  if (grepl("\\.gpkg$", path, ignore.case = TRUE)) {
+    layers <- tryCatch(sf::st_layers(path)$name, error = function(e) NULL)
+    if (is.null(layers)) {
+      return(list(error = paste0("GeoPackage illisible pour '", table_code, "' : ", path)))
+    }
+    if (is.null(layer)) {
+      if (length(layers) == 1) {
+        layer <- layers[1]
+      } else if (table_code %in% layers) {
+        layer <- table_code
+      } else {
+        return(list(error = paste0(
+          "Le GeoPackage ", basename(path), " contient plusieurs couches (",
+          paste(layers, collapse = ", "), ") : préciser la clé 'layer' du dataset '", table_code, "'")))
+      }
+    } else if (!layer %in% layers) {
+      return(list(error = paste0(
+        "Couche '", layer, "' absente de ", basename(path), " (couches : ", paste(layers, collapse = ", "), ")")))
+    }
+  }
+
+  list(path = path, layer = layer,
+       label = if (is.null(layer)) basename(path) else paste0(basename(path), "::", layer),
+       error = NULL)
 }

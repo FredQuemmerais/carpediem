@@ -191,10 +191,14 @@ step2d_sensibilite <- function(config, paths, res1, res2b, engine = NULL) {
     contrib_vec
   }
   
-  n_workers <- max(1L, parallel::detectCores() - 1L)
+  n_workers <- n_workers_for(config)
+  message("Workers : ", n_workers)
+  set_seed_if_any(config, config$analyses$sensibilite_formelle)
   old_plan  <- future::plan()
   plan(multisession, workers = n_workers)
   on.exit(future::plan(old_plan), add = TRUE)
+  old_opt   <- set_globals_max_size(config)
+  on.exit(options(old_opt), add = TRUE)
   
   handlers(global = TRUE)
   handlers("txtprogressbar")

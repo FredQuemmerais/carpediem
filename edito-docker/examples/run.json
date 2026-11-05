@@ -1,0 +1,588 @@
+{
+  "schema_version": "1.0",
+  "id": "20261022T085333Z-mer-du-nord-analyse-simple-de-reference",
+  "description": "Mer du Nord, analyse simple de référence",
+  "status": "succeeded",
+  "exit_code": 0,
+  "started_at": "2026-10-22T08:53:33Z",
+  "ended_at": "2026-10-22T08:54:28Z",
+  "duration_seconds": 55,
+  "software": {
+    "carpediem_version": "2.0.4",
+    "code_commit": "0ca0789"
+  },
+  "study": {
+    "source": "s3://oidc-antoningimard/carpediem/mer_du_nord/study",
+    "config": "config/config_analyse_simple.yml"
+  },
+  "parameters": {
+    "srm": [
+      "MCE",
+      "MDN",
+      "EEZ_BE",
+      "BELTS_SUND",
+      "SKGR",
+      "KTG"
+    ],
+    "agreg_sensib": 2,
+    "th_sensib": 100,
+    "seed": 42,
+    "analyses": {
+      "simple_analysis": true,
+      "monte_carlo": false,
+      "monte_carlo_simulations": null,
+      "deterministic_robustness": false,
+      "stochastic_robustness": false,
+      "shapley_sensitivity": false
+    }
+  },
+  "resources": {
+    "cpu_limit": 2,
+    "memory_limit_gib": 8,
+    "memory_peak_gib": 0.77,
+    "workers": null
+  },
+  "summary": {
+    "n_mailles": 14521,
+    "n_activites": 19,
+    "n_pressions": 24,
+    "srm": [
+      "MCE",
+      "MDN",
+      "EEZ_BE",
+      "BELTS_SUND",
+      "SKGR",
+      "KTG"
+    ],
+    "date_execution": "2026-10-22_08-53",
+    "ima_opt1_moy": 4.545,
+    "ima_opt1_max": 10,
+    "ima_opt2_moy": 0.2678,
+    "ipc_opt1_moy": 15.5637,
+    "ipc_opt1_max": 22,
+    "ipc_opt2_moy": 4.2766,
+    "rexc_moy": 0.886,
+    "rexc_max": 1,
+    "rexc_q75": 0.9358,
+    "rexc_brut_moy": 139940153.0652,
+    "refc_moy": 0.3344,
+    "refc_max": 1,
+    "refc_q75": 0.5232,
+    "ic_moy": 0.5414,
+    "ic_min": 0.4416
+  },
+  "files": [
+    {
+      "path": "outputs/carte_interactive.html",
+      "kind": "map_html",
+      "format": "html",
+      "size": 10606264
+    },
+    {
+      "path": "outputs/details_analyse_2026-10-22_08-53.gpkg",
+      "kind": "result_details",
+      "format": "gpkg",
+      "size": 20389888,
+      "layers": [
+        "activites",
+        "pressions_norm",
+        "sensibilites",
+        "effets"
+      ]
+    },
+    {
+      "path": "outputs/graphs/Bilan_activites.csv",
+      "kind": "graph_data",
+      "format": "csv",
+      "size": 4798
+    },
+    {
+      "path": "outputs/graphs/Bilan_activites.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 1346391
+    },
+    {
+      "path": "outputs/graphs/Bilan_pressions_N1.csv",
+      "kind": "graph_data",
+      "format": "csv",
+      "size": 592
+    },
+    {
+      "path": "outputs/graphs/Bilan_pressions_N1.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 766632
+    },
+    {
+      "path": "outputs/graphs/Bilan_pressions_N2.csv",
+      "kind": "graph_data",
+      "format": "csv",
+      "size": 3888
+    },
+    {
+      "path": "outputs/graphs/Bilan_pressions_N2.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 1126375
+    },
+    {
+      "path": "outputs/graphs/Bilan_pressions_N3.csv",
+      "kind": "graph_data",
+      "format": "csv",
+      "size": 3367
+    },
+    {
+      "path": "outputs/graphs/Bilan_pressions_N3.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 1105132
+    },
+    {
+      "path": "outputs/graphs/Boxplot_IMA1_IC.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 781435
+    },
+    {
+      "path": "outputs/graphs/Boxplot_IMA1_IMA2.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 784506
+    },
+    {
+      "path": "outputs/graphs/Boxplot_IMA1_REFC.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 837658
+    },
+    {
+      "path": "outputs/graphs/Boxplot_IPC1_IC.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 853541
+    },
+    {
+      "path": "outputs/graphs/Boxplot_IPC1_IPC2.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 871108
+    },
+    {
+      "path": "outputs/graphs/Boxplot_IPC1_REFC.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 927049
+    },
+    {
+      "path": "outputs/graphs/Histogramme_IMA1.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 707336
+    },
+    {
+      "path": "outputs/graphs/Histogramme_IMA2.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 708946
+    },
+    {
+      "path": "outputs/graphs/Histogramme_IPC1.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 766036
+    },
+    {
+      "path": "outputs/graphs/Histogramme_IPC2.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 722375
+    },
+    {
+      "path": "outputs/graphs/Histogramme_REFC.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 771463
+    },
+    {
+      "path": "outputs/graphs/Radar_IC.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 978281
+    },
+    {
+      "path": "outputs/graphs/REFC_IC.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 1028457
+    },
+    {
+      "path": "outputs/graphs/REFC_IPC2.jpeg",
+      "kind": "graph",
+      "format": "jpeg",
+      "size": 1879593
+    },
+    {
+      "path": "outputs/maps/IC_20261022_085413.gpkg",
+      "kind": "map_confidence",
+      "format": "gpkg",
+      "size": 3698688,
+      "layers": [
+        "IC_20261022_085413"
+      ]
+    },
+    {
+      "path": "outputs/maps/ic.geojson",
+      "kind": "map_geojson",
+      "format": "geojson",
+      "size": 6126528
+    },
+    {
+      "path": "outputs/maps/REFC_E1_20261022_085351.gpkg",
+      "kind": "map_refc",
+      "format": "gpkg",
+      "size": 3661824,
+      "layers": [
+        "REFC_E1_20261022_085351"
+      ]
+    },
+    {
+      "path": "outputs/maps/refc_e1.geojson",
+      "kind": "map_geojson",
+      "format": "geojson",
+      "size": 4475719
+    },
+    {
+      "path": "outputs/maps/REXC_E1_20261022_085350.gpkg",
+      "kind": "map_rexc",
+      "format": "gpkg",
+      "size": 3694592,
+      "layers": [
+        "REXC_E1_20261022_085350"
+      ]
+    },
+    {
+      "path": "outputs/report.html",
+      "kind": "report_html",
+      "format": "html",
+      "size": 5349
+    },
+    {
+      "path": "outputs/resultats_analyse_2026-10-22_08-53.gpkg",
+      "kind": "result_indices",
+      "format": "gpkg",
+      "size": 4694016,
+      "layers": [
+        "grille_indices"
+      ]
+    },
+    {
+      "path": "outputs/run_info.json",
+      "kind": "pipeline_info",
+      "format": "json",
+      "size": 197
+    },
+    {
+      "path": "outputs/stats_recap_2026-10-22_08-53.json",
+      "kind": "summary",
+      "format": "json",
+      "size": 515
+    },
+    {
+      "path": "run.log",
+      "kind": "log",
+      "format": "log",
+      "size": 8008
+    },
+    {
+      "path": "study/config/config_analyse_simple.yml",
+      "kind": "config",
+      "format": "yml",
+      "size": 6594,
+      "active_config": true
+    },
+    {
+      "path": "study/config/config.yml",
+      "kind": "config",
+      "format": "yml",
+      "size": 6600
+    },
+    {
+      "path": "study/config/matrice_act_press.ods",
+      "kind": "matrix_activities_pressures",
+      "format": "ods",
+      "size": 35828
+    },
+    {
+      "path": "study/config/matrice_sensi_hab_press.ods",
+      "kind": "matrix_sensitivity",
+      "format": "ods",
+      "size": 44666
+    },
+    {
+      "path": "study/inputs/aquaculture_landbased_finfish.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 98304,
+      "dataset": "aquaculture_landbased_finfish",
+      "activity_codes": [
+        "A_1_2_1"
+      ],
+      "layers": [
+        "aquaculture_landbased_finfish"
+      ]
+    },
+    {
+      "path": "study/inputs/aquaculture_macroalgae.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 98304,
+      "dataset": "aquaculture_macroalgae",
+      "activity_codes": [
+        "A_1_1_2"
+      ],
+      "layers": [
+        "aquaculture_macroalgae"
+      ]
+    },
+    {
+      "path": "study/inputs/aquaculture_sea_cages.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 98304,
+      "dataset": "aquaculture_sea_cages",
+      "activity_codes": [
+        "A_1_1_1"
+      ],
+      "layers": [
+        "aquaculture_sea_cages"
+      ]
+    },
+    {
+      "path": "study/inputs/aquaculture_shellfish_back_n_rack.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 106496,
+      "dataset": "aquaculture_shellfish_back_n_rack",
+      "activity_codes": [
+        "A_1_3_2"
+      ],
+      "layers": [
+        "aquaculture_shellfish_back_n_rack"
+      ]
+    },
+    {
+      "path": "study/inputs/aquaculture_shellfish_on_nets.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 106496,
+      "dataset": "aquaculture_shellfish_on_nets",
+      "activity_codes": [
+        "A_1_1_4"
+      ],
+      "layers": [
+        "aquaculture_shellfish_on_nets"
+      ]
+    },
+    {
+      "path": "study/inputs/aquaculture_submersible_ponds.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 98304,
+      "dataset": "aquaculture_submersible_ponds",
+      "activity_codes": [
+        "A_1_2_2"
+      ],
+      "layers": [
+        "aquaculture_submersible_ponds"
+      ]
+    },
+    {
+      "path": "study/inputs/cables_pipelines_cables.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 638976,
+      "dataset": "cables_pipelines_cables",
+      "activity_codes": [
+        "A_5_4_6"
+      ],
+      "layers": [
+        "cables_pipelines_cables"
+      ]
+    },
+    {
+      "path": "study/inputs/engineering_final_clapage.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 139264,
+      "dataset": "engineering_final_clapage",
+      "activity_codes": [
+        "A_5_3_1"
+      ],
+      "layers": [
+        "engineering_final_clapage"
+      ]
+    },
+    {
+      "path": "study/inputs/engineering_final_dredging.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 184320,
+      "dataset": "engineering_final_dredging",
+      "activity_codes": [
+        "A_5_3_2"
+      ],
+      "layers": [
+        "engineering_final_dredging"
+      ]
+    },
+    {
+      "path": "study/inputs/grid.gpkg",
+      "kind": "input_grid",
+      "format": "gpkg",
+      "size": 3702784,
+      "layers": [
+        "grid"
+      ]
+    },
+    {
+      "path": "study/inputs/habbenth.gpkg",
+      "kind": "input_habitats",
+      "format": "gpkg",
+      "size": 10190848,
+      "layers": [
+        "habbenth"
+      ]
+    },
+    {
+      "path": "study/inputs/navigation.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 3465216,
+      "dataset": "navigation",
+      "activity_codes": [
+        "A_7_1"
+      ],
+      "layers": [
+        "navigation"
+      ]
+    },
+    {
+      "path": "study/inputs/owf_traitees_owf_constr.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 126976,
+      "dataset": "owf_traitees_owf_constr",
+      "activity_codes": [
+        "A_5_1_5"
+      ],
+      "layers": [
+        "owf_traitees_owf_constr"
+      ]
+    },
+    {
+      "path": "study/inputs/owf_traitees_owf_planned.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 733184,
+      "dataset": "owf_traitees_owf_planned",
+      "activity_codes": [
+        "A_8_1_3"
+      ],
+      "layers": [
+        "owf_traitees_owf_planned"
+      ]
+    },
+    {
+      "path": "study/inputs/owf_traitees_owf_prod.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 188416,
+      "dataset": "owf_traitees_owf_prod",
+      "activity_codes": [
+        "A_5_2_5"
+      ],
+      "layers": [
+        "owf_traitees_owf_prod"
+      ]
+    },
+    {
+      "path": "study/inputs/peche_beam_trawls.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 2494464,
+      "dataset": "peche_beam_trawls",
+      "activity_codes": [
+        "A_2_2_6"
+      ],
+      "layers": [
+        "peche_beam_trawls"
+      ]
+    },
+    {
+      "path": "study/inputs/peche_bottom_otter_trawls.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 2801664,
+      "dataset": "peche_bottom_otter_trawls",
+      "activity_codes": [
+        "A_2_2_3"
+      ],
+      "layers": [
+        "peche_bottom_otter_trawls"
+      ]
+    },
+    {
+      "path": "study/inputs/peche_bottom_seines.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 1376256,
+      "dataset": "peche_bottom_seines",
+      "activity_codes": [
+        "A_2_2_2"
+      ],
+      "layers": [
+        "peche_bottom_seines"
+      ]
+    },
+    {
+      "path": "study/inputs/peche_dredges.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 552960,
+      "dataset": "peche_dredges",
+      "activity_codes": [
+        "A_2_2_5"
+      ],
+      "layers": [
+        "peche_dredges"
+      ]
+    },
+    {
+      "path": "study/inputs/peche_pelagic_trawls_seines.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 2093056,
+      "dataset": "peche_pelagic_trawls_seines",
+      "activity_codes": [
+        "A_2_3_4"
+      ],
+      "layers": [
+        "peche_pelagic_trawls_seines"
+      ]
+    },
+    {
+      "path": "study/inputs/peche_static_gear.gpkg",
+      "kind": "input_activity",
+      "format": "gpkg",
+      "size": 1933312,
+      "dataset": "peche_static_gear",
+      "activity_codes": [
+        "A_2_3_5"
+      ],
+      "layers": [
+        "peche_static_gear"
+      ]
+    }
+  ]
+}

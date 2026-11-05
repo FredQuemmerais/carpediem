@@ -1,1 +1,9 @@
 .Rproj.user/
+
+# Working material, not versioned
+documentation/
+archives/
+Donnees Mer du Nord/
+CARPEDIEM+/
+.DS_Store
+__pycache__/

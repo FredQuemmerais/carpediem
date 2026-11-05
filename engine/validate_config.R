@@ -69,5 +69,21 @@ validate_config <- function(cfg) {
     must_have(paste0(db_block, ".password"))
   }
   
+  # Facteurs d'incertitude inconnus du moteur (ex. X6_distance, remplacé par X6_typo_act) :
+  # ils seraient ignorés en silence, le facteur attendu prenant sa valeur par défaut.
+  known <- if (exists("FACTOR_REGISTRY")) names(FACTOR_REGISTRY) else c(
+    "X1_mat_AP", "X2_relation_AP", "X3_var_sensi", "X4_var_ccr_AP", "X5_var_act",
+    "X6_typo_act", "X7_mat_sensi", "X8_var_hab", "X9_norm_form", "X10_agreg_press")
+  for (path in c("analyses.monte_carlo.factors",
+                 "analyses.robustesse_deterministe.scenarios",
+                 "analyses.sensibilite_formelle.facteurs")) {
+    unknown <- setdiff(names(get_path(cfg, path)), known)
+    if (length(unknown) > 0) {
+      warning(sprintf("Config: facteur(s) inconnu(s) ignoré(s) dans %s : %s (facteurs connus : %s)",
+                      path, paste(unknown, collapse = ", "), paste(known, collapse = ", ")),
+              call. = FALSE)
+    }
+  }
+
   TRUE
 }

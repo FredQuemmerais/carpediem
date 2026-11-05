@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "resources": {
+      "title": "Customize your resource requirements for this process.",
+      "description": "Your process will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
+      "type": "object",
+      "properties": {
+        "requests": {
+          "description": "Guaranteed resources",
+          "type": "object",
+          "properties": {
+            "cpu": {
+              "description": "The amount of cpu guaranteed",
+              "title": "CPU",
+              "type": "string",
+              "render": "slider",
+              "sliderMin": 100,
+              "sliderMax": 6000,
+              "sliderStep": 100,
+              "sliderUnit": "m",
+              "sliderExtremity": "down",
+              "sliderExtremitySemantic": "guaranteed",
+              "sliderRangeId": "cpu",
+              "default": "1000m"
+            },
+            "memory": {
+              "description": "The amount of memory guaranteed",
+              "title": "memory",
+              "type": "string",
+              "render": "slider",
+              "sliderMin": 1,
+              "sliderMax": 8,
+              "sliderStep": 1,
+              "sliderUnit": "Gi",
+              "sliderExtremity": "down",
+              "sliderExtremitySemantic": "guaranteed",
+              "sliderRangeId": "memory",
+              "default": "2Gi"
+            }
+          }
+        },
+        "limits": {
+          "description": "max resources",
+          "type": "object",
+          "properties": {
+            "cpu": {
+              "description": "The maximum amount of cpu",
+              "title": "CPU",
+              "type": "string",
+              "render": "slider",
+              "sliderMin": 100,
+              "sliderMax": 6000,
+              "sliderStep": 100,
+              "sliderUnit": "m",
+              "sliderExtremity": "up",
+              "sliderExtremitySemantic": "Maximum",
+              "sliderRangeId": "cpu",
+              "default": "6000m"
+            },
+            "memory": {
+              "description": "The maximum amount of memory",
+              "title": "Memory",
+              "type": "string",
+              "render": "slider",
+              "sliderMin": 1,
+              "sliderMax": 8,
+              "sliderStep": 1,
+              "sliderUnit": "Gi",
+              "sliderExtremity": "up",
+              "sliderExtremitySemantic": "Maximum",
+              "sliderRangeId": "memory",
+              "default": "8Gi"
+            }
+          }
+        }
+      }
+    },
+    "vault": {
+      "description": "Configuration of vault client",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/vault.json"
+      }
+    },
+    "s3": {
+      "description": "Configuration of temporary identity",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/s3.json"
+      }
+    },
+    "inputs": {
+      "description": "Process inputs",
+      "type": "object",
+      "properties": {
+        "CARPEDIEM_STUDY": {
+          "title": "Study",
+          "type": "string",
+          "description": "Study to run: a .tar.gz archive (https:// URL or s3://bucket/key) or a folder (s3://bucket/prefix) containing config/ and inputs/. ${AWS_BUCKET_NAME} is replaced by your bucket. Default: North Sea example",
+          "default": "https://minio.dive.edito.eu/oidc-antoningimard/carpediem/mer_du_nord/study.tar.gz"
+        },
+        "CARPEDIEM_CONFIG": {
+          "title": "Configuration",
+          "type": "string",
+          "description": "YAML configuration, relative to the study. config/config_analyse_simple.yml: simple analysis (about 1 min); config/config.yml: with Monte Carlo and robustness analyses (about 20 min with 6 CPUs)",
+          "default": "config/config_analyse_simple.yml"
+        },
+        "CARPEDIEM_OUTPUT": {
+          "title": "Runs folder",
+          "type": "string",
+          "description": "Where the runs are stored: each run writes its own folder <run id>/ there (run.json, run.log, study/, outputs/). ${AWS_BUCKET_NAME} is replaced by your bucket",
+          "default": "s3://${AWS_BUCKET_NAME}/carpediem/runs"
+        },
+        "CARPEDIEM_RUN_DESCRIPTION": {
+          "title": "Run description",
+          "type": "string",
+          "description": "Short description of this run, shown in the list of runs (e.g. North Sea, without pelagic fishing)",
+          "default": ""
+        },
+        "CARPEDIEM_WORKERS": {
+          "title": "Workers",
+          "type": "string",
+          "description": "Number of parallel workers for the Monte Carlo analysis; empty: number of CPUs minus one",
+          "default": ""
+        }
+      }
+    }
+  }
+}

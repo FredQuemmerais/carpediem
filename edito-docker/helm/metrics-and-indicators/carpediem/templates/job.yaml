@@ -1,0 +1,65 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  # A failed run is not retried: each attempt would create a new run folder
+  backoffLimit: 0
+  template:
+    metadata:
+      annotations:
+        checksum/vault: {{ include (print $.Template.BasePath "/secret-vault.yaml") . | sha256sum }}
+    spec:
+      initContainers:
+      - name: {{ .Release.Name }}-main-container
+        image: docker.io/easyglobalmarket/carpediem:2.1.0
+        env:
+          - name: CARPEDIEM_STUDY
+            value: {{ .Values.inputs.CARPEDIEM_STUDY | quote }}
+          - name: CARPEDIEM_CONFIG
+            value: {{ .Values.inputs.CARPEDIEM_CONFIG | quote }}
+          - name: CARPEDIEM_OUTPUT
+            value: {{ .Values.inputs.CARPEDIEM_OUTPUT | quote }}
+          - name: CARPEDIEM_RUN_DESCRIPTION
+            value: {{ .Values.inputs.CARPEDIEM_RUN_DESCRIPTION | quote }}
+          - name: CARPEDIEM_WORKERS
+            value: {{ .Values.inputs.CARPEDIEM_WORKERS | quote }}
+        {{- if or .Values.vault.enabled .Values.s3.enabled }}
+        envFrom:
+        {{- if .Values.vault.enabled }}
+        - secretRef:
+            name: {{ include "library-chart.secretNameVault" . }}
+        {{- end }}
+        {{- if .Values.s3.enabled }}
+        - secretRef:
+            name: {{ include "library-chart.secretNameS3" . }}
+        {{- end }}
+        {{- end }}
+        volumeMounts:
+        - mountPath: /output-data
+          name: temp-volume
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+      containers:
+      # Uploads /output-data, used only when CARPEDIEM_OUTPUT is set to /output-data
+      # (by default the run folder is written directly to S3 by the main container)
+      - name: copy-output
+        image: amazon/aws-cli:2.22.35
+        envFrom:
+          - secretRef:
+              name: {{ include "library-chart.secretNameS3" . }}
+        command: ["aws", "s3", "cp", "/output-data", "--endpoint-url", "https://$(AWS_S3_ENDPOINT)", "s3://{{ .Release.Namespace | replace "user-" "oidc-" }}/{{ .Release.Name }}", "--recursive"]
+        volumeMounts:
+        - mountPath: /output-data
+          name: temp-volume
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+      restartPolicy: Never
+      volumes:
+      - emptyDir: {}
+        name: temp-volume
